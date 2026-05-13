@@ -1,0 +1,733 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
+:root {
+    --pink: #FF3C6F;       /* Signature Pink */
+    --accent: #FF006E;     /* Darker Pink */
+    --mint: #00F5A0;       /* Success Green */
+    --bg-light: #FFF8F0;   /* Cream/Off-white */
+    --card: #FFFFFF;       /* Pure White */
+    --text: #1A1520;       /* Near Black */
+    --border: #1A1520;     /* Sharp Black Borders */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: var(--bg-light);
+    color: var(--text); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.bg-decorations {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: 
+        linear-gradient(rgba(26, 21, 32, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 21, 32, 0.05) 1px, transparent 1px);
+   background-size: 40px 40px;
+}
+
+#login-box {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border: 3px solid var(--border);
+    border-radius: 20px;
+    padding: 50px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 15px 15px 0px var(--pink)
+}
+
+#special-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    color: var(--text);
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    font-style: italic;
+}
+
+#special-title span {
+    color: var(--pink);
+    -webkit-text-stroke: 1px var(--border);
+}
+
+#date-format {
+    color: #f06292;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+#date-input {
+    background: var(--dark);
+    border: 1px solid var(--border);
+    border-bottom: 3px solid #f48fb1;
+    width: 100%;
+    color: #d81b60;
+    font-size: 2.2rem;
+    text-align: center;
+    letter-spacing: 4px;
+    outline: none;
+    /* This creates the heart/dot mask */
+    -webkit-text-security: disc; 
+}
+
+/* The Numpad Grid */
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.numpad button {
+    background: rgba(240, 98, 146, 0.2); /* Soft pink circles */
+    border: none;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #d81b60;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.numpad button:hover {
+    background: rgba(240, 98, 146, 0.4);
+}
+
+#unlock-btn {
+    /* Keep your existing pink theme */
+    background: #ff4081;
+    color: white;
+    border-radius: 50px;
+    border: none;
+    padding: 15px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    
+    /* ENSURE IT RECOGNIZES FLEX CENTERING */
+    margin-top: 30px;
+    display: block;
+    width: fit-content; 
+    align-self: center; /* Double-check for center alignment */
+}
+
+
+.chapter {
+    display: none !important; /* Force hide by default */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.chapter.active {
+    display: flex !important; /* Force show when active */
+    opacity: 1 !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- UPDATED SPRING POLAROIDS --- */
+.polaroid-grid { position: relative; width: 500px; height: 380px; margin-bottom: 20px; }
+
+.polaroid { 
+    position: absolute; 
+    background: white; 
+    padding: 10px 10px 30px 10px; 
+    border: 4px solid #000; 
+    box-shadow: 8px 8px 0px #5271FF;
+    opacity: 0;
+    transform: scale(0.5) translateY(-200px) rotate(-20deg);
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out;
+    will-change: transform, opacity;
+}
+
+.polaroid img { width: 150px; display: block; pointer-events: none; }
+
+.p1 { top: 0; left: 0; }
+.p2 { top: 0; right: 0; }
+.p3 { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); z-index: 10; }
+.p4 { bottom: 0; left: 0; }
+.p5 { bottom: 0; right: 0; }
+
+.polaroid:hover {
+    transform: scale(1.1) rotate(0deg) translateY(-15px) !important;
+    z-index: 100 !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* --- UI ELEMENTS --- */
+.twenty-text { font-size: 15rem; color: #FF3131; -webkit-text-stroke: 6px #000; margin: 0; }
+.sub-title { font-size: 2rem; background: #000; color: #fff; padding: 10px 40px; }
+
+#hype-box {
+    background: #fff; border: 6px solid #000; padding: 50px;
+    box-shadow: 15px 15px 0px #5271FF; margin-bottom: 30px;
+    min-width: 300px; text-align: center;
+}
+
+.next-btn {
+    border: 4px solid #000; padding: 15px 40px; font-weight: 900;
+    cursor: pointer; box-shadow: 8px 8px 0px #000; color: #fff; background: #5271FF;
+    margin-bottom: 20px;
+}
+
+.header-container { text-align: center; margin-bottom: 30px; z-index: 20; }
+.glitch-text { font-size: 4.5rem; color: #000; text-transform: uppercase; margin: 0; line-height: 1; -webkit-text-stroke: 2px #fff; text-shadow: 6px 6px 0px #FF3131; }
+.status-tag { display: inline-block; background: #000; color: #FFDE59; padding: 5px 15px; font-weight: 900; font-size: 1rem; margin-top: 10px; transform: rotate(-2deg); border: 3px solid #fff; box-shadow: 4px 4px 0px #5271FF; }
+
+#stats-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+}
+
+.stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 90%; max-width: 500px; }
+.stat-card { background: #fff; border: 4px solid #000; padding: 20px; box-shadow: 8px 8px 0px #000; text-align: center; }
+.stat-card span { font-size: 0.8rem; font-weight: 900; color: #5271FF; display: block; margin-bottom: 5px; }
+.stat-card h2 { font-size: 2rem; margin: 0; color: #000; }
+
+#finale-btn {
+    margin-top: 50px;
+    background: #000;
+    z-index: 10;
+    position: relative; 
+}
+
+button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #000 !important; }
+
+#quiz-box { background: #fff; border: 6px solid #000; padding: 40px; box-shadow: 20px 20px 0px #5271FF; text-align: center; max-width: 500px; width: 90%; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.quiz-header { background: #000; color: #fff; display: inline-block; padding: 5px 20px; font-size: 0.8rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 20px; transform: rotate(-1deg); }
+#question-text { font-size: 2.5rem; font-weight: 900; color: #000; margin-bottom: 30px; line-height: 1.1; }
+#quiz-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+#quiz-box.shake { animation: shake 0.3s; }
+
+/* --- BG DECORATIONS --- */
+.bg-decorations { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; overflow: hidden; }
+
+.icon { 
+    position: absolute; font-size: 2.5rem; -webkit-text-stroke: 2px #000; 
+    text-shadow: 4px 4px 0px #000; 
+    will-change: transform, filter;
+    transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.i1 { top: 10%; left: 5%; } .i2 { top: 15%; right: 5%; } .i3 { bottom: 10%; left: 8%; } .i4 { bottom: 15%; right: 8%; }
+
+.shake-lite { animation: micro-shake 0.15s infinite; }
+@keyframes micro-shake {
+    0% { transform: translate(1px, 1px); }
+    50% { transform: translate(-1px, -1px); }
+    100% { transform: translate(0, 0); }
+}
+
+#glitch-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #FF3131; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; border: 4px solid #000; }
+#glitch-overlay.hidden { display: none; }
+
+/* --- AURA FEED: FIXED ON RIGHT --- */
+#event-feed-container { 
+    position: fixed; 
+    right: 20px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    width: 250px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    pointer-events: none; 
+    z-index: 100;
+}
+
+.fail-sticker { 
+    background: #fff; 
+    color: #000; 
+    padding: 12px; 
+    border: 3px solid #000; 
+    box-shadow: 6px 6px 0px #FF3131; 
+    animation: stickerSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    text-align: left;
+}
+
+.fail-sticker span { font-size: 0.7rem; color: #FF3131; font-weight: 900; display: block; }
+.fail-sticker p { margin: 5px 0; font-size: 0.85rem; font-weight: 900; line-height: 1.2; color: #000; }
+.fail-sticker h2 { margin: 0; font-size: 1.1rem; color: #000; }
+
+@keyframes stickerSlideIn { 
+    from { transform: translateX(100%); opacity: 0; } 
+    to { transform: translateX(0); opacity: 1; } 
+}
+/* ADD TO THE END OF STYLE.CSS */
+
+/* Difficulty/Combo text for the game */
+#combo-text {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: #FF3131;
+    -webkit-text-stroke: 2px #000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.animate-combo {
+    animation: comboPop 0.5s ease-out;
+}
+
+@keyframes comboPop {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(-50%, -80%) scale(1.5); opacity: 0; }
+}
+
+/* Mesh Gradient Animation */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- ADVANCED POLAROID HOVER --- */
+.polaroid {
+    /* Ensure the container has a solid base for the blend */
+    background: #fff; 
+    overflow: hidden; /* Keeps the blend inside the border */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.polaroid img {
+    width: 150px;
+    display: block;
+    transition: all 0.3s ease;
+    /* This ensures the image starts clean */
+    mix-blend-mode: normal; 
+}
+
+/* THE MAGIC STATE */
+.polaroid:hover {
+    transform: scale(1.1) rotate(0deg) translateY(-15px) !important;
+    z-index: 100 !important;
+    /* Brutalist Blue shadow to contrast the Yellow blend */
+    box-shadow: 15px 15px 0px #5271FF; 
+}
+
+.polaroid:hover img {
+    /* 1. The Blend Mode */
+    mix-blend-mode: multiply;
+    
+    /* 2. The Art-Directed Tint (Brutalist Yellow) */
+    background-color: #FFDE59; 
+    
+    /* 3. The "Anti-Muddiness" Fix */
+    /* Multiply darkens things, so we boost brightness/contrast on hover */
+    filter: brightness(1.1) contrast(1.1);
+}
+
+#date-input {
+    color: transparent !important; /* Hides numbers */
+    caret-color: transparent;      /* Hides blinking cursor */
+    
+    /* Force background visibility */
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 30px 30px;
+    
+    width: 320px; /* Make sure this is wide enough for 8 hearts */
+    height: 60px;
+    font-size: 24px;
+    text-align: left;
+    padding-left: 10px;
+    border: none;
+    border-bottom: 3px solid #ff3131;
+    outline: none;
+    
+    /* Keeps the invisible text from pushing the background around */
+    letter-spacing: 15px; 
+}
+/* If you want actual hearts instead of dots, we use this JS-driven approach */
+.heart-mask {
+    -webkit-text-security: none !important;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+}
+
+#subheading {
+    color: #3b4ad0;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+#glitch-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(255, 182, 193, 0.4);
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; 
+}
+#glitch-overlay.hidden { display: none; }
+
+.error-card {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 40px; /* Matching your new login box */
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(216, 27, 96, 0.2);
+    width: 320px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.error-icon {
+    width: 60px; height: 60px;
+    background: #ff4081;
+    color: white;
+    font-size: 2rem;
+    line-height: 60px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+}
+
+.error-card h2 {
+    color: #d81b60;
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+.error-card p {
+    color: #f06292;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.retry-btn {
+    background: #d81b60;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 50px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.retry-btn:hover {
+    transform: scale(1.05);
+}
+
+#vinyl-player-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--bg-light);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border);
+    padding: 15px;
+    border-radius: 24px;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 8px 8px 0px var(--border);
+    
+}
+
+.vinyl-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#vinyl-record {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    background: #111;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center; 
+    overflow: hidden;
+    flex-shrink: 0; /* ADD THIS: Prevents the oval shape */
+}
+
+.vinyl-controls button {
+    background: var(--pink);
+    color: white;
+    border: 2px solid var(--border);
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 5px 12px;
+    cursor: pointer;
+}
+
+.chapter {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.glitch-text {
+    font-family: 'Fraunces', serif;
+    font-size: 4rem;
+    color: var(--text);
+    text-transform: uppercase;
+}
+
+#vinyl-photo {
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    object-fit: cover; 
+    aspect-ratio: 1 / 1; /* Stops her from being oval */
+    position: absolute;
+    border: 2px solid #222;
+}
+
+.vinyl-hole {
+    position: absolute;
+    width: 8px; /* Slightly smaller looks cleaner */
+    height: 8px;
+    
+    /* 1. Remove the white background to stop making fun of her! */
+    background-color: transparent !important;
+    
+    /* 2. Optional: Add a subtle border/shadow so the physical hole still has depth against the background */
+    border: 1px solid rgba(0,0,0,0.4); 
+    box-shadow: inset 0 2px 2px rgba(0,0,0,0.5); 
+    
+    z-index: 10;
+    pointer-events: none; /* Ensures clicking 'through' the hole still works */
+}
+
+.spinning {
+    animation: spin 3s linear infinite !important;
+}
+
+.paused {
+    animation-play-state: paused !important;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Ensure the record has a base state */
+
+#vinyl-stylus {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 60px;
+    height: 8px;
+    background: #777;
+    border-radius: 4px;
+    z-index: 10;
+    transform-origin: top right;
+}
+
+/* When the parent container is "playing" */
+#vinyl-player-container.playing #vinyl-stylus {
+    transform: rotate(25deg); /* Moves onto the record */
+}
+
+#vinyl-record::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+    pointer-events: none;
+    z-index: 11;
+}
+
+.vinyl-hole {
+    display: none !important;
+}
+
+.vinyl-info {
+    width: 250px;
+    height: 60px; /* Fixed height creates the 'balance' space */
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#vinyl-player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers all children (record, text, buttons) */
+}
+
+#vinyl-player-container {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px); /* Frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
+    padding: 40px;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    transition: transform 0.1s ease;
+    transform-style: preserve-3d; /* Required for the 3D tilt */
+}
+
+#current-track {
+    white-space: nowrap;
+    position: absolute;
+    top: 0;
+    animation: marquee 10s linear infinite;
+}
+
+.vinyl-controls {
+    margin-top: auto; /* Pushes buttons to the bottom of the 60px info box */
+    display: flex;
+    gap: 15px;
+}
+
+/* Ensure the wrapper doesn't shift the alignment */
+.vinyl-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+@keyframes scrollText {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-150%); }
+}
+
+#aura-progress-container {
+    position: fixed; /* Changed to fixed so it stays at the top of the screen */
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 12px; /* Slightly thicker for better visibility */
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: visible; /* Changed to visible so status text doesn't get cut off */
+    z-index: 9999; /* Higher than the trail dots */
+    border: 2px solid var(--border);
+}
+
+#aura-bar-fill {
+    width: 20%;
+    height: 100%;
+    background: var(--pink);
+    border-radius: 20px;
+    transition: width 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 15px var(--pink);
+}
+
+#aura-status {
+    position: absolute;
+    top: 18px; /* Pushes text just below the bar */
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* --- CHAPTER TRANSITIONS --- */
+.chapter {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: slideUp 0.6s ease forwards;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- POLAROID INTERACTION --- */
+.polaroid {
+    cursor: grab;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.polaroid:active { cursor: grabbing; }
+
+.polaroid.inspected {
+    transform: scale(1.3) rotate(0deg) !important;
+    z-index: 500 !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.quiz-opt {
+    margin: 10px 0;
+    width: 100%;
+    display: block;
+    text-align: left;
+    padding-left: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-opt:hover {
+    background: var(--pink) !important;
+    color: white !important;
+    transform: scale(1.02) !important;
+}
+
+.shake {
+    animation: shakeAnim 0.4s ease-in-out;
+}
+
+@keyframes shakeAnim {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-4px); }
+}
