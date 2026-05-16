@@ -461,10 +461,13 @@ function showTarget(num) {
         setTimeout(() => { loadQuestion(); }, 100);
     }
 
-    // CHAPTER 6: AURA AUDIT
-    if (num === 6) startAuraGame();
+      if (num === 6) startAuraGame();
     if (num === 4) animateAuraAudit();
-}    
+    if (num === 10) requestAnimationFrame(() => startTenderCards());
+}
+// -- COMIC STRIP NAVIGATION (chap6)
+
+  
 // ── COMIC STRIP NAVIGATION (chap6) ──────────────────────────
 let comicPanel = 0;
 const COMIC_TOTAL = 5;
@@ -620,8 +623,10 @@ function setupCardDrag(card, container, initialRotate) {
         highestZIndex++;
         card.style.zIndex = highestZIndex; // Карточка вылетает на самый передний план при зажатии
 
+        // ЗАМЕНИ СТАРЫЕ СТРОКИ СТРОГО НА ЭТИ ДВЕ В ONSTART И В ONMOVE:
         const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
 
 
 
@@ -634,8 +639,10 @@ function setupCardDrag(card, container, initialRotate) {
         if (!isDragging) return;
         hasMoved = true;
 
+        // ЗАМЕНИ СТАРЫЕ СТРОКИ СТРОГО НА ЭТИ ДВЕ В ONSTART И В ONMOVE:
         const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
 
 
         currentX = clientX - startX;
