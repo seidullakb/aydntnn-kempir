@@ -153,27 +153,28 @@ body {
     padding-top: 0 !important;
 }
 
-/* Бегущая лента с фейд-маской по краям */
+/* ── ОБЁРТКА: клиппинг + маска по краям экрана ── */
+.polaroid-wrapper {
+    width: 100vw !important;
+    overflow: hidden !important;
+    padding: 30px 0 20px 0 !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%) !important;
+}
+
+/* ── БЕГУЩАЯ ЛЕНТА: анимация живёт здесь ── */
 .polaroid-grid {
     position: relative !important;
     display: flex !important;
-    width: max-content !important; /* Дает 19 фото выстроиться в одну линию */
-    height: 320px !important;
-    margin: 20px auto !important;
+    width: max-content !important;
     gap: 28px !important;
-    padding: 24px 0 50px 0 !important; /* Отступ снизу для hover-zoom эффекта */
-    
-    /* Применяем красивую маску размытия по бокам */
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%) !important;
-    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%) !important;
-    
-    /* Скорость изменена на 65s — лента плывет очень медленно и комфортно */
+    padding: 10px 0 50px 0 !important;
     animation: marquee-scroll 65s linear infinite !important;
     will-change: transform !important;
 }
 
-/* Остановка движения всей ленты при наведении мышки на контейнер */
-.polaroid-grid:hover {
+/* Остановка движения всей ленты при наведении мышки на обёртку */
+.polaroid-wrapper:hover .polaroid-grid {
     animation-play-state: paused !important;
 }
 
@@ -755,6 +756,8 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     text-transform: uppercase;
 }
 
+
+
 /* ═══════════════════════════════════════════════════════════
    COMIC STRIP — ORIGIN_STORY.EXE (chap6)
    Neobrutalist 5-panel horizontal scroll system
@@ -1182,7 +1185,7 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
   border: 2px solid var(--ink);
 }
 .door-block::after {
-  content: 'БӨЛМЕ';
+  content: '8А КАБИНЕТ';
   position: absolute;
   top: 8px; left: 50%;
   transform: translateX(-50%);
@@ -1442,4 +1445,84 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
 
 .vinyl-controls button:active {
     transform: scale(0.9) !important;
+}
+
+/* ==========================================================================
+   TENDER OBSERVATIONS SECTION: 3D CARD DECK & DRAG ENGINE
+   ========================================================================== */
+#cards-deck-container {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    height: 520px !important;
+    background: rgba(26, 21, 32, 0.02) !important;
+    border: 3px dashed var(--border) !important;
+    border-radius: 20px !important;
+    margin: 10px auto !important;
+    overflow: hidden !important;
+    user-select: none !important;
+}
+
+/* Базовый 3D контейнер карточки */
+.observation-card {
+    position: absolute !important;
+    width: 170px !important;
+    height: 230px !important;
+    cursor: grab !important;
+    perspective: 1000px !important; /* Включает 3D пространство */
+}
+.observation-card:active {
+    cursor: grabbing !important;
+}
+
+/* Внутренняя обертка, которая физически крутится */
+.card-inner {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    text-align: center !important;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transform-style: preserve-3d !important;
+}
+
+/* Переворот на 180 градусов при добавлении класса flipped */
+.observation-card.flipped .card-inner {
+    transform: rotateY(180deg) !important;
+}
+
+/* Стили для обеих сторон (рубашки и лица) */
+.card-front, .card-back {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important; /* Скрывает изнанку при перевороте */
+    border: 3px solid var(--border) !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 900 !important;
+}
+
+/* Синяя рубашка карточки (до клика) */
+.card-front {
+    background: #5271FF !important;
+    color: white !important;
+    box-shadow: 4px 4px 0px var(--border) !important;
+    font-size: 2.2rem !important;
+}
+
+/* Белое лицо карточки (твои воспоминания) */
+.card-back {
+    background: white !important;
+    color: var(--text) !important;
+    transform: rotateY(180deg) !important; /* Изначально повернута изнанкой */
+    box-shadow: -4px 4px 0px var(--pink) !important;
+    font-size: 0.8rem !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
 }

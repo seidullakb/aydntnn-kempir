@@ -547,3 +547,135 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// --- TENDER OBSERVATIONS SECTION: 20 TOTAL CARDS DRAG & FLIP ENGINE ---
+const observationsList = [
+    "козиннин астындагы сызыктар кулген кезде кушти боп кетедта, ваще краш боп кетесин",
+    "омиримде корген ен кушти приятный кулки шыгар, кейбир кыздар боладыго кулсе кулагын канайтын, сеники наоборот жагымды кулки.",
+    "бир нарсеге куанган кезде билмим ишинде кишкентай кыз оянып кетема, таза кишкентай кыз боп кетесин.",
+    "бир тема кызып кетсе, токтай алмаай кетесин, куле бересин куле бересин.",
+    "бир кунде 1045 рет факю корсете бересин, басы жок аягы жок.",
+    "андай кипишь боп кеткенде, проблема боганда тез шешу жолын табасын, респект.",
+    "звонок болганда, завтрак обед ужин уакыттарында файеде пикмиланып жургенин",
+    "запрещенкаларга деген махаббатын, канша жесенде барибир крашсынго.",
+    "маган кишкентай кызга карайтындай караганын кушти, баягыда нонимен урысып каганда ойлайтын едим неге мама маган ага емес биринши апше туып бермид деп, сен сиякты апшем болса баска арман жок, коп кутыра беред деп кринж устайтын шыгарсын бирак ол кутырганым кишкентай кезде шыкпай калган кутырыктар негизи",
+    "омиримде ешким ойтип мены еркелетип, кутыртпаган папамамаларда туыскандарда, омимриде ваще бузык болмаганмын сенимен дос болганга дойин",
+    "куниге маган тамак апересин, сушняк, сосын касымда баска кыздар болса соларга да апересин, уйге бара жатканда базяга да берип жибереисн ваще респект",
+    "каникулдарда кыдырган кездер ваще кушти, азанмен ойтип кошеге шыкпаппын омиримде, еще капеге.",
+    "лицейде боваткан букил нарселерге катысыватсын базар жок, тарбиешилер арасы гана емес букил лицей ишинде ен крутой букил нарсеге катыскыш сен шгарсын.",
+    "Всегда менин уйкым канганына, карным токтыгына, дари ишилгенине карап журесин рахмет, даже мама ойтип карамайдыго маган",
+    "ар мелочьтарга карап журесин, не унайд не унамайд, настроением бар жоктыгына",
+    "сен берген аперген плед кимдер ваще бомбаго, толстовканы кимейд деп ойлап кама, 11 битирип жатканда только сомен сосын берген кр футболканмен сосын если класспен азанга дейин отырып анг айтсакта кыста тонсамда только анау пледпен журем.",
+    "лицейде ярмарка бирбалелер болса сразу маган тамак сушняк апергин кеп турады, кушти боп калам ишимнен",
+    "сен берип журген ойыншыктарын ваще ен кушт ойыншыктар, багана тобеде айткандай пашти ойыншык алмайтынмын, меннен еки жаска улкен огизге аперетин коп, магазга барад келед нонидн колында всегда ойыншык болатын, бирак апермеди деп жыламайтынмын, бирак кишкене грусни болам сосын коям",
+    "жасын меникинен сал улкен болсада, элпэ болуга ваще кедерги емес. Баска биреу сен сиякты жылы карамайтын ед деп ойлаймын.",
+    "сухур ифтарды сен isteп беретн кезде кушти болатын едим, сенсиз устап жургенимде карным ашып журетин куни бойы, сен маган тамак степ берем деп азанда ерте турып или иногда тунде уктамайтын кездеринде ваще грусни болатынмын иштей"
+];
+
+let flippedCardsCount = 0;
+let highestZIndex = 100;
+
+function startTenderCards() {
+    const deckContainer = document.getElementById('cards-deck-container');
+    if (!deckContainer) return;
+    deckContainer.innerHTML = ""; 
+    flippedCardsCount = 0;
+    document.getElementById('card-counter').innerText = "0";
+    document.getElementById('finale-trigger-btn').style.display = 'none';
+
+    observationsList.forEach((text, index) => {
+        const card = document.createElement('div');
+        card.className = 'observation-card';
+        card.setAttribute('data-index', index);
+
+        card.innerHTML = `
+            <div class="card-inner">
+                <div class="card-front">${index + 1}</div>
+                <div class="card-back">${text}</div>
+            </div>
+        `;
+
+        // Рандомный разброс карточек по виртуальному столу
+        const randomX = Math.random() * (deckContainer.clientWidth - 180);
+        const randomY = Math.random() * (deckContainer.clientHeight - 240);
+        const randomRotate = Math.random() * 24 - 12; // Повороты от -12deg до 12deg
+
+        card.style.left = `${randomX}px`;
+        card.style.top = `${randomY}px`;
+        card.style.transform = `rotate(${randomRotate}deg)`;
+
+        setupCardDrag(card, deckContainer, randomRotate);
+        deckContainer.appendChild(card);
+    });
+}
+
+function setupCardDrag(card, container, initialRotate) {
+    let isDragging = false;
+    let startX, startY, currentX, currentY;
+    let hasMoved = false;
+
+    const onStart = (e) => {
+        isDragging = true;
+        hasMoved = false;
+        highestZIndex++;
+        card.style.zIndex = highestZIndex; // Карточка вылетает на самый передний план при зажатии
+
+        const clientX = e.type.includes('touch') ? e.touches.clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches.clientY : e.clientY;
+
+        startX = clientX - card.offsetLeft;
+        startY = clientY - card.offsetTop;
+        if(e.type === 'mousedown') e.preventDefault();
+    };
+
+    const onMove = (e) => {
+        if (!isDragging) return;
+        hasMoved = true;
+
+        const clientX = e.type.includes('touch') ? e.touches.clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches.clientY : e.clientY;
+
+        currentX = clientX - startX;
+        currentY = clientY - startY;
+
+        // Не даем карточкам вылетать за границы серого контейнера
+        if (currentX < 0) currentX = 0;
+        if (currentY < 0) currentY = 0;
+        if (currentX > container.clientWidth - card.clientWidth) currentX = container.clientWidth - card.clientWidth;
+        if (currentY > container.clientHeight - card.clientHeight) currentY = container.clientHeight - card.clientHeight;
+
+        card.style.left = `${currentX}px`;
+        card.style.top = `${currentY}px`;
+    };
+
+    const onEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        // Если карточку кликнули без долгого перемещения — переворачиваем её
+        if (!hasMoved) {
+            if (!card.classList.contains('flipped')) {
+                card.classList.add('flipped');
+                card.style.transform = `rotate(0deg) scale(1.03)`; // Выпрямляем при открытии
+                flippedCardsCount++;
+                document.getElementById('card-counter').innerText = flippedCardsCount;
+
+                if (typeof playClick === "function") playClick();
+
+                // Показываем кнопку перехода к финалу, когда все 20 карт перевернуты
+                if (flippedCardsCount === observationsList.length) {
+                    document.getElementById('finale-trigger-btn').style.display = 'inline-block';
+                    if (typeof launchConfetti === "function") launchConfetti();
+                }
+            }
+        }
+    };
+
+    card.addEventListener('mousedown', onStart);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+
+    card.addEventListener('touchstart', onStart, { passive: true });
+    document.addEventListener('touchmove', onMove, { passive: true });
+    document.addEventListener('touchend', onEnd);
+}
