@@ -143,74 +143,104 @@ body {
 }
 
 /* ==========================================================================
-   ФИНАЛЬНАЯ СТАТИЧНАЯ РАСКЛАДКА: СТИЛЬНЫЙ ВЕЕР КАРТОЧЕК
+   БЕСКОНЕЧНЫЙ ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ — MARQUEE GALLERY (#chap1)
    ========================================================================== */
 
-/* Контейнер сетки */
-.polaroid-grid {
-    position: relative !important;
+#chap1.active {
+    overflow-x: hidden !important;
     width: 100% !important;
-    max-width: 850px !important;
-    height: 420px !important;
-    margin: -10px auto 30px auto !important;
-    display: block !important;
+    justify-content: flex-start !important; /* не центрировать по вертикали — лента сверху */
+    padding-top: 0 !important;
 }
 
-/* Базовый стиль полярроидов */
+/* Обёртка — скрывает края, рисует fade-маску */
+.marquee-outer {
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%
+    );
+    padding: 24px 0 50px; /* нижний padding = пространство для hover-zoom */
+}
+
+/* Бегущая лента */
+.marquee-track {
+    display: flex;
+    gap: 28px;
+    width: max-content;
+    animation: marquee-scroll 22s linear infinite;
+    will-change: transform;
+}
+
+/* Стоп на hover по контейнеру */
+.marquee-outer:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+/* Бесшовный цикл: трек = 10 карточек, сдвиг = 50% = 5 оригиналов */
+@keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* ── ПОЛЯРРОИД ── */
 .polaroid {
-    position: absolute !important;
-    background: white !important;
-    padding: 10px 10px 30px 10px !important;
-    border: 3px solid #000 !important;
-    box-shadow: 6px 6px 0px #5271FF !important;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-    cursor: pointer !important;
-    z-index: 10;
+    flex-shrink: 0;
+    position: relative;       /* НЕ absolute — иначе они стопкой */
+    background: white;
+    padding: 12px 12px 38px 12px;
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0px #5271FF;
+    opacity: 1;               /* НЕ 0 — JS от старой логики больше не нужен */
+    transform: rotate(var(--tilt, -3deg));
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.35s ease;
+    cursor: pointer;
+    z-index: 1;
 }
 
-/* ИДЕАЛЬНЫЕ ФИКСИРОВАННЫЕ КООРДИНАТЫ ДЛЯ СИММЕТРИЧНОГО ВЕЕРА */
-#chap1.active .p1 { top: 10px !important; left: 30px !important; transform: rotate(-8deg) scale(1) !important; opacity: 1 !important; }
-#chap1.active .p2 { top: 15px !important; left: 590px !important; transform: rotate(8deg) scale(1) !important; opacity: 1 !important; }
-#chap1.active .p3 { top: 100px !important; left: 310px !important; transform: rotate(-2deg) scale(1.05) !important; opacity: 1 !important; z-index: 20; } /* Центр */
-#chap1.active .p4 { top: 200px !important; left: 20px !important; transform: rotate(5deg) scale(1) !important; opacity: 1 !important; }
-#chap1.active .p5 { top: 210px !important; left: 580px !important; transform: rotate(-6deg) scale(1) !important; opacity: 1 !important; }
+/* чередование наклона */
+.marquee-track .polaroid:nth-child(5n+1) { --tilt: -5deg; }
+.marquee-track .polaroid:nth-child(5n+2) { --tilt:  4deg; }
+.marquee-track .polaroid:nth-child(5n+3) { --tilt: -2deg; }
+.marquee-track .polaroid:nth-child(5n+4) { --tilt:  6deg; }
+.marquee-track .polaroid:nth-child(5n+5) { --tilt: -3deg; }
 
-/* Эффект увеличения при наведении мышки */
+/* hover: выпрямить, увеличить, поднять над соседями */
 .polaroid:hover {
-    transform: scale(1.15) rotate(0deg) !important;
-    z-index: 99999 !important;
-    box-shadow: 12px 12px 0px #FFDE59 !important;
+    transform: scale(1.2) rotate(0deg) !important;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.3), 10px 10px 0px #FFDE59 !important;
+    z-index: 200;
 }
 
-/* Строгие размеры фоток */
 .polaroid img {
-    width: 160px !important;
-    height: 190px !important;
-    object-fit: cover !important;
-    display: block !important;
-    border: 2px solid #000 !important;
+    width: 155px;
+    height: 194px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid #eee;
+    pointer-events: none;
 }
 
-/* Кнопка "THE VERIFICATION" под веером */
-.next-btn {
-    position: relative !important;
-    display: inline-block !important;
-    border: 4px solid #000 !important; 
-    padding: 14px 40px !important; 
-    font-weight: 900 !important;
-    cursor: pointer !important; 
-    box-shadow: 8px 8px 0px #000 !important; 
-    color: #fff !important; 
-    background: #5271FF !important;
-    z-index: 1000 !important;
-    margin-top: 15px !important; 
-    margin-bottom: 25px !important;
+/* НАПРАВЛЕНИЕ ДВИЖЕНИЯ — алиас для совместимости */
+@keyframes infiniteScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
 }
 
-.next-btn:active {
-    transform: translate(4px, 4px) !important;
-    box-shadow: 0px 0px 0px #000 !important;
-}
+/* Стабильное положение синей кнопки "THE VERIFICATION" снизу */
+
 
 /* --- UI ELEMENTS --- */
 .twenty-text { font-size: 15rem; color: #FF3131; -webkit-text-stroke: 6px #000; margin: 0; }
@@ -368,46 +398,7 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     100% { background-position: 0% 50%; }
 }
 
-.polaroid-grid {
-    position: relative !important;
-    width: 100% !important;
-    max-width: 800px !important;
-    height: 420px !important; /* Уменьшаем высоту сетки, чтобы подтянуть нижние фото выше */
-    margin: -20px auto 50px auto !important; /* Сдвигаем всю группу фото выше к заголовку и делаем отступ снизу */
-    display: block !important;
-}
-
-.polaroid {
-    position: absolute;
-    background: white;
-    padding: 10px 10px 30px 10px;
-    border: 3px solid #000;
-    box-shadow: 6px 6px 0px #5271FF;
-    z-index: 10;
-    opacity: 0; /* Starts hidden, revealed by JS */
-    transition: transform 0.3s ease, opacity 0.5s ease;
-}
-
-.polaroid img {
-    width: 170px; 
-    height: 212px; /* 170 * 1.25 */
-    object-fit: cover;
-    display: block;
-}
-
-/* --- THE BALANCED "NON-MESSY" LAYOUT --- */
-
-.p1 { top: 5%; left: 5%; transform: rotate(-8deg); }
-.p2 { top: 10%; left: 65%; transform: rotate(7deg); }
-.p3 { top: 25%; left: 35%; transform: rotate(-2deg); z-index: 50 !important; } 
-.p4 { top: 55%; left: 10%; transform: rotate(5deg); }
-.p5 { top: 60%; left: 60%; transform: rotate(-10deg); }
-
-/* Hover logic: don't move, just bring to front */
-.polaroid:hover {
-    z-index: 100 !important;
-    transform: scale(1.05) rotate(0deg);
-}
+/* ── OLD polaroid-grid REMOVED — replaced by .marquee-outer below ── */
 
 
 #date-input {

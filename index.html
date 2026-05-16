@@ -86,20 +86,33 @@
 </div>
 
     <div id="secret-content" style="display: none;">
-        <section class="chapter active" id="chap1">
-            <div class="header-container">
-                <h1 class="glitch-text">BIRTHDAY GIRL</h1>
-                <p class="status-tag">STATUS: LEVEL 20 UNLOCKED</p>
-            </div>
-            <div class="polaroid-grid">
-                <div class="polaroid p1"><img src="photo1.jpg"></div>
-                <div class="polaroid p2"><img src="photo2.jpg"></div>
-                <div class="polaroid p3"><img src="photo3.jpg"></div>
-                <div class="polaroid p4"><img src="photo4.jpg"></div>
-                <div class="polaroid p5"><img src="photo5.jpg"></div>
-            </div>
-            <button class="next-btn" onclick="nextChap(6)">THE VERIFICATION</button>
-        </section>
+
+<section class="chapter active" id="chap1">
+    <div class="header-container">
+        <h1 class="glitch-text">BIRTHDAY GIRL</h1>
+        <p class="status-tag">STATUS: LEVEL 20 UNLOCKED</p>
+    </div>
+
+    <!-- MARQUEE GALLERY -->
+    <div class="marquee-outer">
+        <div class="marquee-track">
+            <!-- оригинальные 5 фото -->
+            <div class="polaroid"><img src="photo1.jpg"></div>
+            <div class="polaroid"><img src="photo2.jpg"></div>
+            <div class="polaroid"><img src="photo3.jpg"></div>
+            <div class="polaroid"><img src="photo4.jpg"></div>
+            <div class="polaroid"><img src="photo5.jpg"></div>
+            <!-- точная копия для бесшовного зацикливания -->
+            <div class="polaroid"><img src="photo1.jpg"></div>
+            <div class="polaroid"><img src="photo2.jpg"></div>
+            <div class="polaroid"><img src="photo3.jpg"></div>
+            <div class="polaroid"><img src="photo4.jpg"></div>
+            <div class="polaroid"><img src="photo5.jpg"></div>
+        </div>
+    </div>
+
+    <button class="next-btn" onclick="nextChap(6)">THE VERIFICATION</button>
+</section>
 
         <section class="chapter" id="chap6">
             <h2 class="section-subtitle">// ORIGIN_STORY.EXE</h2>
