@@ -1462,6 +1462,17 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     overflow: hidden !important;
     user-select: none !important;
 }
+#chap10 {
+    display: none !important;
+}
+
+#chap10.active {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 1 !important;
+}
 
 /* Базовый 3D контейнер карточки */
 .observation-card {
