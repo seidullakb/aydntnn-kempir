@@ -317,5 +317,22 @@
     </div>
 
     <script src="script.js"></script>
+
+    <script>
+  const grid = document.querySelector('.polaroid-grid');
+  
+  function scroll() {
+    // If the grid has scrolled past the first 19 images, reset to 0
+    if (grid.scrollLeft >= grid.scrollWidth / 2) {
+      grid.scrollLeft = 0;
+    } else {
+      grid.scrollLeft += 1; // Increase this number to make it scroll faster
+    }
+  }
+
+  // Runs the scroll function every 16 milliseconds (~60 frames per second)
+  setInterval(scroll, 16);
+</script>
+
 </body>
 </html> 

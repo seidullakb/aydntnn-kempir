@@ -183,14 +183,13 @@ body {
     to   { transform: translateX(-50%); }
 }
 
-/* ── ПОЛЯРРОИД КАРТОЧКА ── */
 .polaroid {
     flex-shrink: 0 !important;
-    position: relative !important; /* Относительное положение, чтобы работал flex-ряд */
-    top: auto !important;
-    left: auto !important;
+    position: relative !important;
+    width: 155px !important;    /* Жестко задаем ширину рамки */
+    height: 240px !important;   /* Увеличиваем общую высоту рамки, чтобы снизу осталось пустое поле */
     background: white !important;
-    padding: 12px 12px 38px 12px !important;
+    padding: 12px 12px 0 12px !important; /* Убираем нижний паддинг, так как высоту теперь держит рамка */
     border: 3px solid #000 !important;
     box-shadow: 6px 6px 0px #5271FF !important;
     opacity: 1 !important;
@@ -199,6 +198,7 @@ body {
                 box-shadow 0.35s ease !important;
     cursor: pointer !important;
     z-index: 1 !important;
+    box-sizing: border-box !important;
 }
 
 /* Красивое автоматическое чередование наклона для 19 фотографий */
@@ -216,11 +216,11 @@ body {
 }
 
 .polaroid img {
-    width: 140px !important;
-    height: 175px !important;
-    object-fit: cover !important;
+    width: 100% !important;        /* Растягивается ровно по ширине */
+    height: 185px !important;      /* Картинка занимает только верхнюю часть (185px из 240px) */
+    object-fit: cover !important;  /* Идеально обрезает края без искажений */
     display: block !important;
-    border: 1px solid #eee !important;
+    border: 2px solid #000 !important; /* Четкая внутренняя черная рамка вокруг фото */
     pointer-events: none !important;
 }
 
@@ -239,6 +239,31 @@ body {
     margin-top: 25px !important; 
     margin-bottom: 30px !important;
 }
+
+.polaroid-grid {
+    display: flex !important;
+    gap: 30px;
+    overflow-x: auto !important;
+    white-space: nowrap;
+    width: 100%;
+}
+
+/* This completely hides the ugly scrollbar at the bottom while it moves */
+.polaroid-grid::-webkit-scrollbar {
+    display: none !important;
+}
+
+
+/* Сама анимация сдвига ровно на половину длины (на один полный набор из 19 фото) */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Сдвиг на 50% идеален, так как наборы одинаковые */
+    }
+}
+
 
 
 /* --- UI ELEMENTS --- */
