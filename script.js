@@ -162,18 +162,6 @@ function nextChap(num) {
         }, 10);
     }
 
-    // 3. CHAPTER SPECIFIC LOGIC
-    
-    // Chapter 1: Polaroids
-    if (num === 1) {
-        document.querySelectorAll('.polaroid').forEach((p, index) => {
-            setTimeout(() => {
-                p.style.opacity = '1';
-                p.style.transform = `scale(1) rotate(${Math.random()*12-6}deg)`;
-            }, index * 180);
-        });
-    }
-
     // Chapter 2: THE QUIZ (THE BUG FIX)
    if (num === 2) {
         currentQuestion = 0;
