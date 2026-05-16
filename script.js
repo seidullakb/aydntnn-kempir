@@ -68,7 +68,10 @@ function playMusic(trackObj) {
         }
         record.classList.remove('paused');
         record.classList.add('spinning');
-        document.getElementById('vinyl-player-container').classList.add('playing');
+        const playerContainer = document.getElementById('vinyl-player-container');
+playerContainer.classList.add('playing');
+playerContainer.classList.remove('hidden-player'); // Чтобы плеер сам открылся, если заиграла музыка
+
         btn.innerText = "⏸";
     }).catch(e => console.error("Playback error:", e));
 }
@@ -433,7 +436,6 @@ function updateAuraBar(chapterNum) {
 function nextChap(num) {
     playClick();
     
-    // Smooth transition out
     const activeChap = document.querySelector('.chapter.active');
     if (activeChap) {
         activeChap.style.opacity = '0';
@@ -454,51 +456,106 @@ function showTarget(num) {
     if(target) {
         target.style.display = 'flex';
         target.classList.add('active');
-        // Ensure opacity is set so it doesn't stay invisible if CSS is stuck
         setTimeout(() => { target.style.opacity = '1'; }, 50);
     }
 
-    // CHAPTER 1: INTERACTIVE POLAROIDS
+    // CHAPTER 1: POLAROIDS
     if (num === 1) {
         const polaroids = document.querySelectorAll('.polaroid');
         polaroids.forEach((p, index) => {
-            setTimeout(() => {
-                p.style.opacity = '1';
-                p.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-            }, index * 150);
-
-            p.onclick = function() {
-                playClick();
-                polaroids.forEach(other => other.classList.remove('inspected'));
-                this.classList.add('inspected');
-            };
+            setTimeout(() => { p.style.opacity = '1'; }, index * 150);
         });
     }
 
-    // CHAPTER 2: THE QUIZ (The missing logic)
+    // CHAPTER 2: THE QUIZ
     if (num === 2) {
-        currentQuestion = 0; // Reset progress
-        setTimeout(() => {
-            loadQuestion(); // This builds the buttons and question text
-        }, 200); 
+        currentQuestion = 0;
+        setTimeout(() => { loadQuestion(); }, 100);
     }
 
-    // CHAPTER 4 & 6 (GAMES & AUDIT)
+    // CHAPTER 6: AURA AUDIT
     if (num === 6) startAuraGame();
     if (num === 4) animateAuraAudit();
+}    
+// ── COMIC STRIP NAVIGATION (chap6) ──────────────────────────
+let comicPanel = 0;
+const COMIC_TOTAL = 5;
 
-    // CHAPTER 5: FINAL COUNT
-    if (num === 5) {
-        let n = 0;
-        const nInt = setInterval(() => { 
-            const bigNum = document.getElementById('big-number');
-            if(n < 20) { 
-                n++; 
-                if(bigNum) bigNum.innerText = n; 
-            } else { 
-                clearInterval(nInt); 
-                launchConfetti(); 
-            }
-        }, 100);
-    }
+function scrollComic(dir) {
+    comicPanel = Math.max(0, Math.min(COMIC_TOTAL - 1, comicPanel + dir));
+    const strip = document.getElementById('comic-strip');
+    if (strip) strip.style.transform = `translateX(-${comicPanel * 20}%)`;
+
+    const counter = document.getElementById('panel-counter');
+    if (counter) counter.textContent = `${comicPanel + 1} / ${COMIC_TOTAL}`;
+
+    // Show CONTINUE button after last panel
+    const continueBtn = document.getElementById('comic-continue-btn');
+    if (continueBtn) continueBtn.style.display = comicPanel === COMIC_TOTAL - 1 ? 'inline-block' : 'none';
 }
+
+function rewindComic() {
+    comicPanel = 0;
+    const strip = document.getElementById('comic-strip');
+    if (strip) strip.style.transform = 'translateX(0)';
+    const counter = document.getElementById('panel-counter');
+    if (counter) counter.textContent = `1 / ${COMIC_TOTAL}`;
+    const continueBtn = document.getElementById('comic-continue-btn');
+    if (continueBtn) continueBtn.style.display = 'none';
+}
+
+// Reset comic state when chap6 is entered
+const _origShowTarget = typeof showTarget === 'function' ? showTarget : null;
+document.addEventListener('DOMContentLoaded', () => {
+    // Keyboard nav for comic when chap6 is active
+    document.addEventListener('keydown', (e) => {
+        const chap6 = document.getElementById('chap6');
+        if (!chap6 || !chap6.classList.contains('active')) return;
+        if (e.key === 'ArrowRight') scrollComic(1);
+        if (e.key === 'ArrowLeft')  scrollComic(-1);
+    });
+
+    // Touch/swipe for comic viewport
+    const vp = document.querySelector('.comic-viewport');
+    if (vp) {
+        let touchStartX = 0;
+        vp.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+        vp.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 40) scrollComic(dx < 0 ? 1 : -1);
+        });
+    }
+});
+
+// --- CONTROL CENTER WIDGET LOGIC ---
+document.addEventListener("DOMContentLoaded", () => {
+    const ccTrigger = document.getElementById('control-center-trigger');
+    const vinylPlayer = document.getElementById('vinyl-player-container');
+    const ccClose = document.getElementById('close-cc-btn');
+
+    // Проверяем, существуют ли элементы, чтобы не вызвать ошибок
+    if (ccTrigger && vinylPlayer && ccClose) {
+        
+        // По умолчанию прячем плеер при загрузке страницы
+        vinylPlayer.classList.add('hidden-player');
+
+        // Открытие плеера при клике на всплывающую иконку ноты
+        ccTrigger.addEventListener('click', () => {
+            vinylPlayer.classList.remove('hidden-player');
+            ccTrigger.style.pointerEvents = 'none'; // Отключаем клики по иконке, пока плеер открыт
+            ccTrigger.style.opacity = '0';
+        });
+
+        // Закрытие плеера при клике на крестик '×'
+        ccClose.addEventListener('click', (e) => {
+            e.stopPropagation(); // Предотвращаем всплытие клика
+            vinylPlayer.classList.add('hidden-player');
+            
+            // Возвращаем иконку ноты обратно после закрытия плеера
+            setTimeout(() => {
+                ccTrigger.style.pointerEvents = 'auto';
+                ccTrigger.style.opacity = '';
+            }, 400);
+        });
+    }
+});

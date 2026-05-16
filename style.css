@@ -142,33 +142,69 @@ body {
     justify-content: center;
 }
 
-/* --- UPDATED SPRING POLAROIDS --- */
-.polaroid-grid { position: relative; width: 500px; height: 380px; margin-bottom: 20px; }
-
-.polaroid { 
-    position: absolute; 
-    background: white; 
-    padding: 10px 10px 30px 10px; 
-    border: 4px solid #000; 
-    box-shadow: 8px 8px 0px #5271FF;
-    opacity: 0;
-    transform: scale(0.5) translateY(-200px) rotate(-20deg);
-    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out;
-    will-change: transform, opacity;
+/* --- UPDATED: Explosive Balanced Polaroids --- */
+.polaroid-grid {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 550px;
+    margin: 0 auto;
+    display: block;
 }
 
-.polaroid img { width: 150px; display: block; pointer-events: none; }
+.polaroid {
+    position: absolute;
+    background: white;
+    padding: 12px 12px 35px 12px; /* Bottom padding for the "Polaroid" look */
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0px #5271FF;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    z-index: 10;
+}
 
-.p1 { top: 0; left: 0; }
-.p2 { top: 0; right: 0; }
-.p3 { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); z-index: 10; }
-.p4 { bottom: 0; left: 0; }
-.p5 { bottom: 0; right: 0; }
+/* 3. Balanced Positioning State (when the explosion happens) */
+#chap1.active .p1 { top: 15% !important; left: 10% !important; transform: rotate(-8deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
+#chap1.active .p2 { top: 15% !important; left: 70% !important; transform: rotate(10deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
+#chap1.active .p3 { top: 50% !important; left: 40% !important; transform: rotate(-3deg) scale(1.1) !important; opacity: 1 !important; z-index: 20; } /* Center Focus */
+#chap1.active .p4 { top: 75% !important; left: 15% !important; transform: rotate(5deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
+#chap1.active .p5 { top: 70% !important; left: 65% !important; transform: rotate(-12deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
 
+/* --- THE HOVER/INSULATION EFFECT --- */
 .polaroid:hover {
-    transform: scale(1.1) rotate(0deg) translateY(-15px) !important;
+    transform: scale(1.2) rotate(0deg) !important; /* Stand up straight and get big */
+    z-index: 500 !important; /* Jump to the very front */
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5); /* Deep shadow to separate it */
+}
+
+.polaroid img {
+    width: 160px;   /* Width */
+    height: 200px;  /* Height (160 * 1.25 for 4:5 ratio) */
+    object-fit: cover; /* Prevents stretching */
+    display: block;
+    border: 1px solid #eee;
+}
+
+/* Top Left */
+.p1 { top: 5%; left: 5%; transform: rotate(-6deg); }
+
+/* Top Right */
+.p2 { top: 8%; left: 65%; transform: rotate(8deg); }
+
+/* Center Focus (Highest Z-Index) */
+.p3 { top: 25%; left: 35%; transform: rotate(-2deg); z-index: 20 !important; }
+
+/* Bottom Left */
+.p4 { top: 55%; left: 10%; transform: rotate(5deg); }
+
+/* Bottom Right */
+.p5 { top: 60%; left: 60%; transform: rotate(-7deg); }
+
+/* Hover effect: bring to front and straighten */
+.polaroid:hover {
+    transform: scale(1.1) rotate(0deg) !important;
     z-index: 100 !important;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    box-shadow: 12px 12px 0px #FFDE59;
 }
 
 /* --- UI ELEMENTS --- */
@@ -312,41 +348,47 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     100% { background-position: 0% 50%; }
 }
 
-/* --- ADVANCED POLAROID HOVER --- */
+/* This gives the photos a "playground" to move around in */
+.polaroid-grid {
+    position: relative;
+    width: 800px;  /* Fixed width so percentages work */
+    height: 550px; /* Fixed height so percentages work */
+    margin: 20px auto;
+    display: block !important; /* Forces it to NOT be a flexbox */
+}
+
 .polaroid {
-    /* Ensure the container has a solid base for the blend */
-    background: #fff; 
-    overflow: hidden; /* Keeps the blend inside the border */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: absolute;
+    background: white;
+    padding: 10px 10px 30px 10px;
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0px #5271FF;
+    z-index: 10;
+    opacity: 0; /* Starts hidden, revealed by JS */
+    transition: transform 0.3s ease, opacity 0.5s ease;
 }
 
 .polaroid img {
-    width: 150px;
+    width: 170px; 
+    height: 212px; /* 170 * 1.25 */
+    object-fit: cover;
     display: block;
-    transition: all 0.3s ease;
-    /* This ensures the image starts clean */
-    mix-blend-mode: normal; 
 }
 
-/* THE MAGIC STATE */
+/* --- THE BALANCED "NON-MESSY" LAYOUT --- */
+
+.p1 { top: 5%; left: 5%; transform: rotate(-8deg); }
+.p2 { top: 10%; left: 65%; transform: rotate(7deg); }
+.p3 { top: 25%; left: 35%; transform: rotate(-2deg); z-index: 50 !important; } 
+.p4 { top: 55%; left: 10%; transform: rotate(5deg); }
+.p5 { top: 60%; left: 60%; transform: rotate(-10deg); }
+
+/* Hover logic: don't move, just bring to front */
 .polaroid:hover {
-    transform: scale(1.1) rotate(0deg) translateY(-15px) !important;
     z-index: 100 !important;
-    /* Brutalist Blue shadow to contrast the Yellow blend */
-    box-shadow: 15px 15px 0px #5271FF; 
+    transform: scale(1.05) rotate(0deg);
 }
 
-.polaroid:hover img {
-    /* 1. The Blend Mode */
-    mix-blend-mode: multiply;
-    
-    /* 2. The Art-Directed Tint (Brutalist Yellow) */
-    background-color: #FFDE59; 
-    
-    /* 3. The "Anti-Muddiness" Fix */
-    /* Multiply darkens things, so we boost brightness/contrast on hover */
-    filter: brightness(1.1) contrast(1.1);
-}
 
 #date-input {
     color: transparent !important; /* Hides numbers */
@@ -678,56 +720,695 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     text-transform: uppercase;
 }
 
-/* --- CHAPTER TRANSITIONS --- */
-.chapter {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    animation: slideUp 0.6s ease forwards;
+/* ═══════════════════════════════════════════════════════════
+   COMIC STRIP — ORIGIN_STORY.EXE (chap6)
+   Neobrutalist 5-panel horizontal scroll system
+═══════════════════════════════════════════════════════════ */
+
+:root {
+  --ink:        #1A1520;
+  --comic-white: #FFFFFF;
+  --comic-pink:  #FF3C6F;
+  --comic-yellow:#FFE600;
+  --comic-sky:   #A8D8FF;
+  --comic-paper: #FFFDF4;
+  --caption-h:   36px;
+  --comic-border:     3px solid var(--ink);
+  --comic-border-fat: 4px solid var(--ink);
+  --comic-shadow:     5px 5px 0 var(--ink);
+  --comic-shadow-sm:  3px 3px 0 var(--ink);
 }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+/* ── VIEWPORT ── */
+.comic-viewport {
+  width: 90vw;
+  max-width: 800px;
+  height: 450px;
+  border: var(--comic-border-fat);
+  box-shadow: 7px 7px 0 var(--ink);
+  overflow: hidden;
+  position: relative;
+  background: var(--comic-white);
 }
 
-/* --- POLAROID INTERACTION --- */
-.polaroid {
-    cursor: grab;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.comic-strip {
+  display: flex;
+  width: 500%;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-.polaroid:active { cursor: grabbing; }
+/* ── PANEL ── */
+.comic-viewport .panel {
+  width: 20%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border-right: var(--comic-border-fat);
+}
+.comic-viewport .panel:last-child { border-right: none; }
 
-.polaroid.inspected {
-    transform: scale(1.3) rotate(0deg) !important;
-    z-index: 500 !important;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+.comic-viewport .panel-art {
+  position: absolute;
+  inset: 0 0 var(--caption-h) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.quiz-opt {
-    margin: 10px 0;
-    width: 100%;
-    display: block;
-    text-align: left;
-    padding-left: 20px;
-    position: relative;
-    overflow: hidden;
+/* ── CAPTION ── */
+.comic-viewport .panel-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: var(--caption-h);
+  background: var(--ink);
+  color: var(--comic-yellow);
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  border-top: var(--comic-border);
 }
 
-.quiz-opt:hover {
-    background: var(--pink) !important;
-    color: white !important;
-    transform: scale(1.02) !important;
+/* ── PANEL NUMBER BADGE ── */
+.panel-num {
+  position: absolute;
+  top: 8px; left: 8px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--comic-yellow);
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 11px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 20;
 }
 
-.shake {
-    animation: shakeAnim 0.4s ease-in-out;
+/* ── PANEL BACKGROUNDS ── */
+.panel-01 { background: #FFFAEB; }
+.panel-02 { background: #F0EEFF; }
+.panel-03 { background: #EBFFF5; }
+.panel-04 { background: #FFF0F5; }
+.panel-05 { background: #FFFAEB; }
+
+/* ── COMIC NAV ── */
+.comic-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  width: 90vw;
+  max-width: 800px;
 }
 
-@keyframes shakeAnim {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    50% { transform: translateX(8px); }
-    75% { transform: translateX(-4px); }
+.comic-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.control-btn {
+  padding: 8px 20px;
+  border: var(--comic-border-fat);
+  background: var(--comic-white);
+  color: var(--ink);
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: var(--comic-shadow-sm);
+  text-transform: uppercase;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.control-btn:hover  { background: var(--comic-yellow); }
+.control-btn:active { transform: translate(3px,3px); box-shadow: none; }
+.control-btn.rewind { background: var(--ink); color: var(--comic-yellow); }
+
+/* ── STICK FIGURE SYSTEM ── */
+.stick-figure {
+  position: relative;
+  width: 40px;
+  height: 80px;
+}
+
+.stick-figure .head {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background: var(--comic-paper);
+}
+
+.stick-figure.blonde .head::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: -3px;
+  width: 26px; height: 12px;
+  background: #F3E5AB;
+  border-radius: 50% 50% 0 0;
+  border: 2px solid var(--ink);
+  border-bottom: none;
+}
+
+.stick-figure.brunette .head::before {
+  content: '';
+  position: absolute;
+  top: -7px; left: -3px;
+  width: 26px; height: 14px;
+  background: #4B3621;
+  border-radius: 50% 50% 20% 20%;
+  border: 2px solid var(--ink);
+  border-bottom: none;
+}
+
+.stick-figure .body {
+  position: absolute;
+  top: 20px; left: 50%;
+  transform: translateX(-50%);
+  width: 3px; height: 28px;
+  background: var(--ink);
+}
+
+/* arms — angled V downward */
+.stick-figure .arm-l,
+.stick-figure .arm-r {
+  position: absolute;
+  top: 26px; left: 50%;
+  width: 3px; height: 16px;
+  background: var(--ink);
+  transform-origin: top center;
+}
+.stick-figure .arm-l { transform: translateX(-50%) rotate(-40deg); margin-left: -1px; }
+.stick-figure .arm-r { transform: translateX(-50%) rotate( 40deg); margin-left:  1px; }
+
+.stick-figure.running .arm-l { transform: translateX(-50%) rotate(-65deg); }
+.stick-figure.running .arm-r { transform: translateX(-50%) rotate( 20deg); }
+.stick-figure.reaching .arm-l { transform: translateX(-50%) rotate(-15deg); }
+.stick-figure.reaching .arm-r { transform: translateX(-50%) rotate( 15deg); }
+
+/* legs — angled V outward */
+.stick-figure .leg-l,
+.stick-figure .leg-r {
+  position: absolute;
+  top: 48px; left: 50%;
+  width: 3px; height: 20px;
+  background: var(--ink);
+  transform-origin: top center;
+}
+.stick-figure .leg-l { transform: translateX(-50%) rotate(-18deg); margin-left: -1px; }
+.stick-figure .leg-r { transform: translateX(-50%) rotate( 18deg); margin-left:  1px; }
+
+.stick-figure.running { transform: rotate(-8deg); }
+.stick-figure.running .leg-l { transform: translateX(-50%) rotate(-35deg); }
+.stick-figure.running .leg-r { transform: translateX(-50%) rotate(  5deg); }
+
+/* ── MINI FIGURES (crowd) ── */
+.girl-dot {
+  position: relative;
+  width: 22px; height: 48px;
+  flex-shrink: 0;
+}
+
+.girl-dot .mini-head {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: var(--comic-paper);
+}
+.girl-dot .mini-head::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: -2px;
+  width: 16px; height: 8px;
+  background: #F3E5AB;
+  border-radius: 50% 50% 0 0;
+  border: 1.5px solid var(--ink);
+  border-bottom: none;
+}
+.girl-dot:nth-child(3n) .mini-head::before { background: #4B3621; }
+.girl-dot:nth-child(5n) .mini-head::before { background: #C8A26B; }
+
+.girl-dot .mini-body {
+  position: absolute;
+  top: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: 2px; height: 16px;
+  background: var(--ink);
+}
+
+.girl-dot .mini-arm-l,
+.girl-dot .mini-arm-r {
+  position: absolute;
+  top: 15px; left: 50%;
+  width: 2px; height: 10px;
+  background: var(--ink);
+  transform-origin: top center;
+}
+.girl-dot .mini-arm-l { transform: translateX(-50%) rotate(-40deg); margin-left: -1px; }
+.girl-dot .mini-arm-r { transform: translateX(-50%) rotate( 40deg); margin-left:  1px; }
+
+.girl-dot .mini-leg-l,
+.girl-dot .mini-leg-r {
+  position: absolute;
+  top: 28px; left: 50%;
+  width: 2px; height: 14px;
+  background: var(--ink);
+  transform-origin: top center;
+}
+.girl-dot .mini-leg-l { transform: translateX(-50%) rotate(-20deg); margin-left: -1px; }
+.girl-dot .mini-leg-r { transform: translateX(-50%) rotate( 20deg); margin-left:  1px; }
+
+/* ── DIALOGUE BUBBLES ── */
+.group-ask {
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--comic-white);
+  border: 3px solid var(--ink);
+  border-radius: 15px;
+  padding: 8px 14px;
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.45;
+  text-align: center;
+  max-width: 80%;
+  box-shadow: var(--comic-shadow-sm);
+  z-index: 10;
+}
+.group-ask::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; left: 50%;
+  transform: translateX(-50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--comic-white);
+  border: 3px solid var(--ink);
+  box-shadow: 0 10px 0 var(--comic-white), 1px 10px 0 var(--ink), -1px 10px 0 var(--ink);
+}
+
+.speech-bubble.hero-me {
+  position: absolute;
+  bottom: calc(var(--caption-h) + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--comic-pink);
+  color: var(--comic-white);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 7px 14px;
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 11px;
+  text-align: center;
+  max-width: 75%;
+  box-shadow: var(--comic-shadow-sm);
+  z-index: 10;
+}
+.speech-bubble.hero-me::after {
+  content: '';
+  position: absolute;
+  bottom: -12px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid var(--ink);
+}
+.speech-bubble.hero-me::before {
+  content: '';
+  position: absolute;
+  bottom: -9px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid var(--comic-pink);
+  z-index: 1;
+}
+
+.speech-bubble.authority {
+  position: absolute;
+  top: 20px; right: 10px;
+  background: var(--comic-sky);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 11px;
+  text-align: center;
+  max-width: 45%;
+  box-shadow: var(--comic-shadow-sm);
+  z-index: 10;
+}
+.speech-bubble.authority::after {
+  content: '';
+  position: absolute;
+  bottom: -12px; right: 20px;
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid var(--ink);
+}
+.speech-bubble.authority::before {
+  content: '';
+  position: absolute;
+  bottom: -9px; right: 21px;
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid var(--comic-sky);
+  z-index: 1;
+}
+
+/* ── PANEL 01 ── */
+.girls-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 28px);
+  grid-template-rows: repeat(2, 52px);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.p01-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; height: 100%;
+  gap: 4px;
+  position: relative;
+}
+
+.cake-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6px;
+  font-size: 24px;
+}
+
+.cake-warning {
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--comic-pink);
+  border: 2px solid var(--comic-pink);
+  padding: 2px 6px;
+  margin-top: 3px;
+  background: var(--comic-white);
+}
+
+/* ── PANEL 02 ── */
+.door-block {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px; height: 130px;
+  border: var(--comic-border-fat);
+  background: #D4A96A;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.door-block::before {
+  content: '';
+  position: absolute;
+  top: 30%; right: 10px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #FFD700;
+  border: 2px solid var(--ink);
+}
+.door-block::after {
+  content: 'БӨЛМЕ';
+  position: absolute;
+  top: 8px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+
+.door-frame {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 110px; height: 145px;
+  border: var(--comic-border-fat);
+  background: transparent;
+}
+
+.p02-authority-fig {
+  position: absolute;
+  bottom: calc(var(--caption-h) + 28px);
+  left: 52%; transform: translateX(-50%);
+  z-index: 5;
+}
+.p02-blonde-fig {
+  position: absolute;
+  bottom: calc(var(--caption-h) + 28px);
+  left: 22%; transform: translateX(-50%);
+  z-index: 5;
+}
+
+/* ── PANEL 03 ── */
+.hallway {
+  position: absolute;
+  inset: 0 0 var(--caption-h) 0;
+  overflow: hidden;
+}
+.hallway::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 30%;
+  background: repeating-linear-gradient(90deg, transparent 0px, transparent 38px, var(--ink) 38px, var(--ink) 40px);
+  opacity: 0.15;
+}
+.hallway::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 22%;
+  background: var(--comic-sky);
+  border-bottom: var(--comic-border);
+}
+
+.p03-blonde-fig  { position: absolute; bottom: calc(var(--caption-h) + 20px); left: 18%; }
+.p03-brunette-fig { position: absolute; bottom: calc(var(--caption-h) + 20px); right: 18%; }
+
+/* ── PANEL 04 ── */
+.p04-split {
+  position: absolute;
+  inset: 0 0 var(--caption-h) 0;
+  display: flex;
+}
+.p04-left, .p04-right {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end;
+  padding-bottom: 24px;
+}
+.p04-left  { background: #FFF0F5; border-right: var(--comic-border-fat); }
+.p04-right { background: #F5F5FF; }
+
+.matchbox {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px; height: 28px;
+  border: var(--comic-border-fat);
+  background: var(--comic-yellow);
+  box-shadow: var(--comic-shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; z-index: 5;
+}
+
+.hand-left, .hand-right {
+  position: absolute;
+  top: 52%;
+  width: 36px; height: 10px;
+  background: var(--comic-paper);
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  z-index: 4;
+}
+.hand-left  { left: 22%; }
+.hand-right { right: 22%; }
+
+/* ── PANEL 05 ── */
+.p05-layout {
+  position: absolute;
+  inset: 0 0 var(--caption-h) 0;
+}
+
+.bg-crowd {
+  position: absolute;
+  bottom: 52%; left: 0; right: 0;
+  height: 52px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px; padding: 0 12px;
+  opacity: 0.55;
+}
+
+.bg-cake {
+  position: absolute;
+  bottom: calc(50% - 2px); left: 50%;
+  transform: translateX(-50%);
+  font-size: 36px;
+  filter: drop-shadow(2px 2px 0 var(--ink));
+}
+
+.candle-flame {
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+}
+
+.pizza-slice {
+  position: absolute;
+  bottom: calc(var(--caption-h) + 18px);
+  left: 50%; transform: translateX(-50%);
+  font-size: 38px;
+  filter: drop-shadow(3px 3px 0 var(--ink));
+  z-index: 5;
+}
+
+.p05-blonde-fig {
+  position: absolute;
+  bottom: calc(var(--caption-h) + 20px);
+  left: 25%; transform: translateX(-50%);
+  z-index: 6;
+}
+.p05-brunette-fig {
+  position: absolute;
+  bottom: calc(var(--caption-h) + 20px);
+  right: 18%; z-index: 6;
+}
+
+.shout-bubble {
+  position: absolute;
+  top: 12px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--comic-yellow);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  box-shadow: var(--comic-shadow);
+  z-index: 10;
+}
+
+.section-subtitle {
+  font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  color: var(--pink);
+  margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   CONTROL CENTER WIDGET STYLES (MUSIC PLAYER OVERLAY)
+   ========================================================================== */
+
+/* Контейнер-зона для отслеживания наведения курсора в углу экрана */
+.control-center-wrapper {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    z-index: 9999; /* Поверх всех окон, полярнойдов и плашек */
+}
+
+/* Плавающая иконка ноты 🎵 */
+.cc-trigger-btn {
+    opacity: 0;
+    transform: scale(0.7);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: var(--pink);
+    color: white;
+    border: 3px solid var(--border);
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    font-size: 22px;
+    box-shadow: 6px 6px 0px var(--border);
+}
+
+/* Плавное проявление кнопки при наведении на зону */
+.control-center-wrapper:hover .cc-trigger-btn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Переопределение старого стиля плеера под оверлей */
+#vinyl-player-container {
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    background: var(--card) !important;
+    border: 3px solid var(--border) !important;
+    border-radius: 24px !important;
+    padding: 24px !important;
+    box-shadow: 10px 10px 0px var(--pink) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    width: max-content !important;
+    z-index: 10000;
+}
+
+/* Состояние «Скрыто» — улетает вниз и затухает */
+.hidden-player {
+    opacity: 0 !important;
+    transform: scale(0.85) translateY(40px) !important;
+    pointer-events: none !important;
+}
+
+/* Кнопка Крестик '×' для закрытия */
+.cc-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #a0a0a0;
+    z-index: 10001;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.cc-close-btn:hover {
+    color: var(--pink);
+    transform: scale(1.1);
+}
+
+/* Стили для того, чтобы кнопки внутри плеера корректно нажимались */
+.vinyl-controls button {
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.vinyl-controls button:active {
+    transform: scale(0.9);
 }
