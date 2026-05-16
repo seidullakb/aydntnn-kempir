@@ -620,8 +620,10 @@ function setupCardDrag(card, container, initialRotate) {
         highestZIndex++;
         card.style.zIndex = highestZIndex; // Карточка вылетает на самый передний план при зажатии
 
-        const clientX = e.type.includes('touch') ? e.touches.clientX : e.clientX;
-        const clientY = e.type.includes('touch') ? e.touches.clientY : e.clientY;
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+
 
         startX = clientX - card.offsetLeft;
         startY = clientY - card.offsetTop;
@@ -632,8 +634,9 @@ function setupCardDrag(card, container, initialRotate) {
         if (!isDragging) return;
         hasMoved = true;
 
-        const clientX = e.type.includes('touch') ? e.touches.clientX : e.clientX;
-        const clientY = e.type.includes('touch') ? e.touches.clientY : e.clientY;
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
 
         currentX = clientX - startX;
         currentY = clientY - startY;
@@ -659,6 +662,7 @@ function setupCardDrag(card, container, initialRotate) {
                 card.style.transform = `rotate(0deg) scale(1.03)`; // Выпрямляем при открытии
                 flippedCardsCount++;
                 document.getElementById('card-counter').innerText = flippedCardsCount;
+
 
                 if (typeof playClick === "function") playClick();
 
