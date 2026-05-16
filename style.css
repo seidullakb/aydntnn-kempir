@@ -163,12 +163,12 @@ body {
     z-index: 10;
 }
 
-/* 3. Balanced Positioning State (when the explosion happens) */
-#chap1.active .p1 { top: 15% !important; left: 10% !important; transform: rotate(-8deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
-#chap1.active .p2 { top: 15% !important; left: 70% !important; transform: rotate(10deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
-#chap1.active .p3 { top: 50% !important; left: 40% !important; transform: rotate(-3deg) scale(1.1) !important; opacity: 1 !important; z-index: 20; } /* Center Focus */
-#chap1.active .p4 { top: 75% !important; left: 15% !important; transform: rotate(5deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
-#chap1.active .p5 { top: 70% !important; left: 65% !important; transform: rotate(-12deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
+/* Измени эти 5 строк в блоке позиционирования полярроидов */
+#chap1.active .p1 { top: 8% !important; left: 10% !important; transform: rotate(-8deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
+#chap1.active .p2 { top: 8% !important; left: 70% !important; transform: rotate(10deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
+#chap1.active .p3 { top: 40% !important; left: 40% !important; transform: rotate(-3deg) scale(1.1) !important; opacity: 1 !important; z-index: 20; } 
+#chap1.active .p4 { top: 65% !important; left: 15% !important; transform: rotate(5deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
+#chap1.active .p5 { top: 60% !important; left: 65% !important; transform: rotate(-12deg) scale(1) !important; opacity: 1 !important; z-index: 10; }
 
 /* --- THE HOVER/INSULATION EFFECT --- */
 .polaroid:hover {
@@ -218,10 +218,28 @@ body {
 }
 
 .next-btn {
-    border: 4px solid #000; padding: 15px 40px; font-weight: 900;
-    cursor: pointer; box-shadow: 8px 8px 0px #000; color: #fff; background: #5271FF;
-    margin-bottom: 20px;
+    position: absolute !important;
+    bottom: 20px !important; /* Опускаем кнопку в самый низ контента */
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Идеальное центрирование */
+    border: 4px solid #000 !important; 
+    padding: 12px 35px !important; 
+    font-weight: 900 !important;
+    cursor: pointer !important; 
+    box-shadow: 6px 6px 0px #000 !important; 
+    color: #fff !important; 
+    background: #5271FF !important;
+    z-index: 999999 !important; /* Огромный приоритет — кнопка встанет ПОВЕРХ поляроидов */
+    margin: 0 !important;
 }
+
+/* Эффект клика */
+.next-btn:active {
+    transform: translate(calc(-50% + 4px), 4px) !important;
+    box-shadow: 0px 0px 0px #000 !important;
+}
+
+
 
 .header-container { text-align: center; margin-bottom: 30px; z-index: 20; }
 .glitch-text { font-size: 4.5rem; color: #000; text-transform: uppercase; margin: 0; line-height: 1; -webkit-text-stroke: 2px #fff; text-shadow: 6px 6px 0px #FF3131; }
@@ -1325,42 +1343,41 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
    CONTROL CENTER WIDGET STYLES (MUSIC PLAYER OVERLAY)
    ========================================================================== */
 
-/* Контейнер-зона для отслеживания наведения курсора в углу экрана */
 .control-center-wrapper {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 140px;
-    height: 140px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    z-index: 9999; /* Поверх всех окон, полярнойдов и плашек */
+    position: fixed !important;
+    bottom: 25px !important;
+    right: 25px !important;
+    width: auto !important;
+    height: auto !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: flex-end !important;
+    z-index: 99999 !important;
 }
 
-/* Плавающая иконка ноты 🎵 */
 .cc-trigger-btn {
-    opacity: 0;
-    transform: scale(0.7);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background: var(--pink);
-    color: white;
-    border: 3px solid var(--border);
-    border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    cursor: pointer;
-    font-size: 22px;
-    box-shadow: 6px 6px 0px var(--border);
+    opacity: 1 !important; /* Forces visibility so you can see it instantly */
+    transform: scale(1) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    background: var(--pink) !important;
+    color: white !important;
+    border: 3px solid var(--border) !important;
+    border-radius: 50% !important;
+    width: 55px !important;
+    height: 55px !important;
+    cursor: pointer !important;
+    font-size: 22px !important;
+    box-shadow: 6px 6px 0px var(--border) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
-/* Плавное проявление кнопки при наведении на зону */
-.control-center-wrapper:hover .cc-trigger-btn {
-    opacity: 1;
-    transform: scale(1);
+.cc-trigger-btn:hover {
+    transform: scale(1.1) !important;
+    background: var(--accent) !important;
 }
 
-/* Переопределение старого стиля плеера под оверлей */
 #vinyl-player-container {
     position: absolute !important;
     bottom: 0 !important;
@@ -1373,42 +1390,39 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     box-shadow: 10px 10px 0px var(--pink) !important;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
     width: max-content !important;
-    z-index: 10000;
+    z-index: 10000 !important;
 }
 
-/* Состояние «Скрыто» — улетает вниз и затухает */
 .hidden-player {
     opacity: 0 !important;
     transform: scale(0.85) translateY(40px) !important;
     pointer-events: none !important;
 }
 
-/* Кнопка Крестик '×' для закрытия */
 .cc-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 14px;
-    background: none;
-    border: none;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #a0a0a0;
-    z-index: 10001;
-    transition: color 0.2s, transform 0.2s;
+    position: absolute !important;
+    top: 10px !important;
+    right: 14px !important;
+    background: none !important;
+    border: none !important;
+    font-size: 22px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    color: #a0a0a0 !important;
+    z-index: 10001 !important;
+    transition: color 0.2s !important;
 }
 
-.cc-close-btn:hover {
-    color: var(--pink);
-    transform: scale(1.1);
+.cc-close-btn:hover { 
+    color: var(--pink) !important; 
 }
 
-/* Стили для того, чтобы кнопки внутри плеера корректно нажимались */
+
 .vinyl-controls button {
-    cursor: pointer;
-    transition: transform 0.1s;
+    cursor: pointer !important;
+    transition: transform 0.1s !important;
 }
 
 .vinyl-controls button:active {
-    transform: scale(0.9);
+    transform: scale(0.9) !important;
 }
