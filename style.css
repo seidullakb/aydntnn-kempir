@@ -143,103 +143,102 @@ body {
 }
 
 /* ==========================================================================
-   БЕСКОНЕЧНЫЙ ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ — MARQUEE GALLERY (#chap1)
+   БЕСКОНЕЧНЫЙ ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ — МАРКИ-ГАЛЕРЕЯ (#chap1)
    ========================================================================== */
 
 #chap1.active {
     overflow-x: hidden !important;
     width: 100% !important;
-    justify-content: flex-start !important; /* не центрировать по вертикали — лента сверху */
+    justify-content: center !important;
     padding-top: 0 !important;
 }
 
-/* Обёртка — скрывает края, рисует fade-маску */
-.marquee-outer {
-    width: 100%;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(
-        to right,
-        transparent 0%,
-        black 6%,
-        black 94%,
-        transparent 100%
-    );
-    mask-image: linear-gradient(
-        to right,
-        transparent 0%,
-        black 6%,
-        black 94%,
-        transparent 100%
-    );
-    padding: 24px 0 50px; /* нижний padding = пространство для hover-zoom */
+/* Бегущая лента с фейд-маской по краям */
+.polaroid-grid {
+    position: relative !important;
+    display: flex !important;
+    width: max-content !important; /* Дает 19 фото выстроиться в одну линию */
+    height: 320px !important;
+    margin: 20px auto !important;
+    gap: 28px !important;
+    padding: 24px 0 50px 0 !important; /* Отступ снизу для hover-zoom эффекта */
+    
+    /* Применяем красивую маску размытия по бокам */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%) !important;
+    
+    /* Скорость изменена на 65s — лента плывет очень медленно и комфортно */
+    animation: marquee-scroll 65s linear infinite !important;
+    will-change: transform !important;
 }
 
-/* Бегущая лента */
-.marquee-track {
-    display: flex;
-    gap: 28px;
-    width: max-content;
-    animation: marquee-scroll 22s linear infinite;
-    will-change: transform;
+/* Остановка движения всей ленты при наведении мышки на контейнер */
+.polaroid-grid:hover {
+    animation-play-state: paused !important;
 }
 
-/* Стоп на hover по контейнеру */
-.marquee-outer:hover .marquee-track {
-    animation-play-state: paused;
-}
-
-/* Бесшовный цикл: трек = 10 карточек, сдвиг = 50% = 5 оригиналов */
+/* Бесшовный цикл: сдвиг ровно на половину (длина первой пачки из 19 оригиналов) */
 @keyframes marquee-scroll {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
 }
 
-/* ── ПОЛЯРРОИД ── */
+/* ── ПОЛЯРРОИД КАРТОЧКА ── */
 .polaroid {
-    flex-shrink: 0;
-    position: relative;       /* НЕ absolute — иначе они стопкой */
-    background: white;
-    padding: 12px 12px 38px 12px;
-    border: 3px solid #000;
-    box-shadow: 6px 6px 0px #5271FF;
-    opacity: 1;               /* НЕ 0 — JS от старой логики больше не нужен */
-    transform: rotate(var(--tilt, -3deg));
+    flex-shrink: 0 !important;
+    position: relative !important; /* Относительное положение, чтобы работал flex-ряд */
+    top: auto !important;
+    left: auto !important;
+    background: white !important;
+    padding: 12px 12px 38px 12px !important;
+    border: 3px solid #000 !important;
+    box-shadow: 6px 6px 0px #5271FF !important;
+    opacity: 1 !important;
+    transform: rotate(var(--tilt, -3deg)) !important;
     transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                box-shadow 0.35s ease;
-    cursor: pointer;
-    z-index: 1;
+                box-shadow 0.35s ease !important;
+    cursor: pointer !important;
+    z-index: 1 !important;
 }
 
-/* чередование наклона */
-.marquee-track .polaroid:nth-child(5n+1) { --tilt: -5deg; }
-.marquee-track .polaroid:nth-child(5n+2) { --tilt:  4deg; }
-.marquee-track .polaroid:nth-child(5n+3) { --tilt: -2deg; }
-.marquee-track .polaroid:nth-child(5n+4) { --tilt:  6deg; }
-.marquee-track .polaroid:nth-child(5n+5) { --tilt: -3deg; }
+/* Красивое автоматическое чередование наклона для 19 фотографий */
+.polaroid:nth-child(5n+1) { --tilt: -5deg; }
+.polaroid:nth-child(5n+2) { --tilt:  4deg; }
+.polaroid:nth-child(5n+3) { --tilt: -2deg; }
+.polaroid:nth-child(5n+4) { --tilt:  6deg; }
+.polaroid:nth-child(5n+5) { --tilt: -3deg; }
 
-/* hover: выпрямить, увеличить, поднять над соседями */
+/* Ховер-эффект: карточка плавно увеличивается, выпрямляется и вылетает вперед */
 .polaroid:hover {
-    transform: scale(1.2) rotate(0deg) !important;
-    box-shadow: 0 24px 48px rgba(0,0,0,0.3), 10px 10px 0px #FFDE59 !important;
-    z-index: 200;
+    transform: scale(1.18) rotate(0deg) translateY(-10px) !important;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.25), 10px 10px 0px #FFDE59 !important;
+    z-index: 99999 !important;
 }
 
 .polaroid img {
-    width: 155px;
-    height: 194px;
-    object-fit: cover;
-    display: block;
-    border: 1px solid #eee;
-    pointer-events: none;
+    width: 140px !important;
+    height: 175px !important;
+    object-fit: cover !important;
+    display: block !important;
+    border: 1px solid #eee !important;
+    pointer-events: none !important;
 }
 
-/* НАПРАВЛЕНИЕ ДВИЖЕНИЯ — алиас для совместимости */
-@keyframes infiniteScroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+/* Кнопка "THE VERIFICATION" под бегущей дорожкой */
+.next-btn {
+    position: relative !important;
+    display: inline-block !important;
+    border: 4px solid #000 !important; 
+    padding: 15px 40px !important; 
+    font-weight: 900 !important;
+    cursor: pointer !important; 
+    box-shadow: 8px 8px 0px #000 !important; 
+    color: #fff !important; 
+    background: #5271FF !important;
+    z-index: 1000 !important;
+    margin-top: 25px !important; 
+    margin-bottom: 30px !important;
 }
-
-/* Стабильное положение синей кнопки "THE VERIFICATION" снизу */
 
 
 /* --- UI ELEMENTS --- */
