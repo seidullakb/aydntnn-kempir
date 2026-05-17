@@ -10,35 +10,35 @@
 <body>
     <div id="trail-container"></div>
     <div id="custom-cursor"></div>
-
+ 
     <div class="bg-decorations">
     <div class="icon i1"></div>
     <div class="icon i2"></div>
     <div class="icon i3"></div>
     <div class="icon i4"></div> </div>
-
+ 
     <audio id="bg-music"></audio>
     <audio id="click-sfx" src="click.mp3" preload="auto"></audio>
     <audio id="buzzer-sfx" src="buzzer.mp3" preload="auto"></audio>
     <audio id="win-sfx" src="win.mp3" preload="auto"></audio>
     <audio id="confetti-sfx" src="confetti.mp3" preload="auto"></audio>
-
+ 
     <div class="control-center-wrapper">
         <!-- Floating shortcut button that reveals on hover -->
         <button id="control-center-trigger" class="cc-trigger-btn">🎵</button>
-
+ 
         <!-- Your updated music player structure -->
         <div id="vinyl-player-container" class="hidden-player">
             <!-- Close button inside the player -->
             <button id="close-cc-btn" class="cc-close-btn">×</button>
-
+ 
             <div class="vinyl-wrapper">
                 <div id="vinyl-record"> 
                     <img src="her-photo.jpg" id="vinyl-photo">
                 </div>
                 <div id="vinyl-stylus"></div>
             </div>
-
+ 
             <div class="vinyl-info">
                 <span id="current-track">Track: None</span>
                 <div class="vinyl-controls">
@@ -49,8 +49,8 @@
             </div>
         </div>
     </div>
-
-
+ 
+ 
     <div id="login-box">
     <h2 id="special-title">Enter the Special Date</h2>
     <span id="date-format">DD/MM/YYYY</span>
@@ -58,7 +58,7 @@
     <div class="input-wrapper">
     <input type="text" id="date-input" maxlength="8" readonly style="background-color: transparent;">
     </div>
-
+ 
     <div class="numpad">
         <button onclick="appendNum(1)">1</button>
         <button onclick="appendNum(2)">2</button>
@@ -72,7 +72,7 @@
         <div style="visibility: hidden;"></div> <button onclick="appendNum(0)">0</button>
         <button onclick="backspace()"><i class="fas fa-backspace"></i> ← </button>
     </div>
-
+ 
     <button id="unlock-btn" onclick="checkDate()">UNLOCK CHAPTER 20</button>
 </div>
         
@@ -84,15 +84,15 @@
         <button class="retry-btn" onclick="closeGlitch()">RETRY</button>
     </div>
 </div>
-
+ 
     <div id="secret-content" style="display: none;">
-
-<section class="chapter active" id="chap1">
+ 
+<section class="chapter" id="chap2">
     <div class="header-container">
         <h1 class="glitch-text">BIRTHDAY GIRL</h1>
         <p class="status-tag">STATUS: LEVEL 20 UNLOCKED</p>
     </div>
-
+ 
     <div class="polaroid-wrapper">
         <div class="polaroid-grid">
             <!-- ================= НАБОР 1: ВСЕ 19 КАРТИНОК ================= -->
@@ -115,7 +115,7 @@
             <div class="polaroid"><img src="photo17.jpg"></div>
             <div class="polaroid"><img src="photo18.jpg"></div>
             <div class="polaroid"><img src="photo19.jpg"></div>
-
+ 
             <!-- ================= НАБОР 2: ТОЧНАЯ КОПИЯ ДЛЯ БЕСШОВНОСТИ ================= -->
             <div class="polaroid"><img src="photo1.jpg"></div>
             <div class="polaroid"><img src="photo2.jpg"></div>
@@ -138,17 +138,17 @@
             <div class="polaroid"><img src="photo19.jpg"></div>
         </div>
     </div>
-
-
-    <button class="next-btn" onclick="nextChap(6)">THE VERIFICATION</button>
+ 
+ 
+    <button class="next-btn" onclick="nextChap(3)">THE VERIFICATION</button>
 </section>
-
-        <section class="chapter" id="chap6">
+ 
+        <section class="chapter" id="chap3">
             <h2 class="section-subtitle">БИРИНШИ СОЙЛЕСКЕН КЕЗ</h2>
-
+ 
             <div class="comic-viewport">
                 <div class="comic-strip" id="comic-strip">
-
+ 
                     <!-- PANEL 01 — THE QUEST FOR FIRE -->
                     <div class="panel panel-01">
                         <div class="panel-num">1</div>
@@ -179,7 +179,7 @@
                         </div>
                         <div class="panel-caption">АСЫЛАЙДЫҢ ТУҒАН КҮНІ, 04.10.2023</div>
                     </div>
-
+ 
                     <!-- PANEL 02 — CLOSED DOORS -->
                     <div class="panel panel-02">
                         <div class="panel-num">2</div>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="panel-caption">КАЗЫНА АПКЕ АШУЛЫ</div>
                     </div>
-
+ 
                     <!-- PANEL 03 — AN UNEXPECTED ALLY -->
                     <div class="panel panel-03">
                         <div class="panel-num">3</div>
@@ -212,7 +212,7 @@
                         </div>
                         <div class="panel-caption">АЙДАНА АПКЕ ПАЙДА БОЛДЫ</div>
                     </div>
-
+ 
                     <!-- PANEL 04 — THE DEAL -->
                     <div class="panel panel-04">
                         <div class="panel-num">4</div>
@@ -231,7 +231,7 @@
                         </div>
                         <div class="panel-caption">СПИШКА</div>
                     </div>
-
+ 
                     <!-- PANEL 05 — CELEBRATION -->
                     <div class="panel panel-05">
                         <div class="panel-num">5</div>
@@ -260,10 +260,10 @@
                         </div>
                         <div class="panel-caption">УРААА! ✨🍕</div>
                     </div>
-
+ 
                 </div>
             </div>
-
+ 
             <div class="comic-nav">
                 <span class="panel-counter" id="panel-counter">1 / 5</span>
                 <div class="comic-controls">
@@ -272,53 +272,54 @@
                     <button class="control-btn" onclick="scrollComic(1)">NEXT →</button>
                 </div>
             </div>
-
+ 
             <button class="next-btn continue-story" id="comic-continue-btn"
                 style="display:none; margin-top:20px;"
-                onclick="nextChap(2)">CONTINUE →</button>
+                onclick="nextChap(4)">CONTINUE →</button>
         </section>
-
-        <!-- TENDER OBSERVATIONS WIDGET (RIGHT AFTER COMICS) -->
-        <section class="chapter" id="chap10">
-            <div class="header-container">
-                <h1 class="glitch-text">THE 20 THINGS</h1>
-                <p class="status-tag">CARDS FLIPPED: <span id="card-counter">0</span>/20</p>
-            </div>
-
-            <!-- Virtual desk deck layout container where cards scatter -->
-            <div id="cards-deck-container"></div>
-
-            <!-- Reveals only when all 20 observations are fully flipped -->
-            <button id="finale-trigger-btn" class="next-btn" style="display: none;" onclick="nextChap(3)">PROCEED TO FINALE</button>
-        </section>
-        
-
-        <section class="chapter" id="chap3">
-            <div id="hype-box"><h1 id="hype-text">READY?</h1></div>
-            <button class="next-btn" onclick="generateHype()" style="background: #FF3131;">HYPE ME</button>
-            <button class="next-btn" onclick="nextChap(4)" style="background: #000;">VIEW STATS</button>
-        </section>
-
-        <section class="chapter" id="chap4">
-            <div id="event-feed-container"></div>
-            <div id="stats-area">
-                <h1 class="glitch-text" style="margin-bottom: 30px;">AURA AUDIT</h1>
-                <div class="stats-container">
-                    <div class="stat-card"><span>DAYS ALIVE</span> <h2 id="stat-days">0</h2></div>
-                    <div class="stat-card"><span>AURA TOTAL</span> <h2 id="aura-total" style="color: #FF3131;">1000000</h2></div>
-                </div>
-                <button id="finale-btn" class="next-btn" onclick="nextChap(5)" style="margin-top: 30px; display: none;">THE FINALE</button>
-            </div>
-        </section>
-
-        <section class="chapter" id="chap5">
-            <h1 id="big-number" class="twenty-text">0</h1>
-            <h2 class="sub-title">MAY 08 / 2026</h2>
-        </section>
+ 
+ 
+<!-- ================= PAGE 4: THE 20 THINGS CARDS ENGINE ================= -->
+<section class="chapter" id="chap4">
+    <div class="header-container">
+        <h1 class="glitch-text">THE 20 THINGS</h1>
+        <p class="status-tag">CARDS FLIPPED: <span id="card-counter">0</span>/20</p>
     </div>
-
+ 
+      <div id="cards-deck-container"></div>
+    <button id="finale-trigger-btn" class="next-btn" style="display: none;" onclick="nextChap(5)">THE VERIFICATION</button>
+</section>
+ 
+ 
+<!-- ================= PAGE 5: READY? HYPE INTERACTIVE HUB ================= -->
+<section class="chapter" id="chap5">
+    <div id="hype-box"><h1 id="hype-text">READY?</h1></div>
+    <button class="next-btn" onclick="generateHype()" style="background: #FF3131;">HYPE ME</button>
+    <button class="next-btn" onclick="nextChap(6)" style="background: #000;">VIEW STATS</button>
+</section>
+ 
+<!-- ================= PAGE 6: AURA AUDIT PROFILE METRICS ================= -->
+<section class="chapter" id="chap6">
+    <div id="event-feed-container"></div>
+    <div id="stats-area">
+        <h1 class="glitch-text" style="margin-bottom: 30px;">AURA AUDIT</h1>
+        <div class="stats-container">
+            <div class="stat-card"><span>DAYS ALIVE</span><h2 id="stat-days">0</h2></div>
+            <div class="stat-card"><span>AURA TOTAL</span><h2 id="aura-total" style="color: #FF3131;">1000000</h2></div>
+        </div>
+        <button id="finale-btn" class="next-btn" onclick="nextChap(7)" style="margin-top: 30px; display: none;">THE FINALE</button>
+    </div>
+</section>
+ 
+<!-- ================= PAGE 7: MILESTONE TIMER COUNTER ================= -->
+<section class="chapter" id="chap7">
+    <h1 id="big-number" class="twenty-text">0</h1>
+    <h2 class="sub-title">MAY 08 / 2026</h2>
+</section>
+    </div>
+ 
     <script src="script.js"></script>
-
+ 
     <script>
   const grid = document.querySelector('.polaroid-grid');
   
@@ -330,10 +331,10 @@
       grid.scrollLeft += 1; // Increase this number to make it scroll faster
     }
   }
-
+ 
   // Runs the scroll function every 16 milliseconds (~60 frames per second)
   setInterval(scroll, 16);
 </script>
-
+ 
 </body>
-</html> 
+</html>
