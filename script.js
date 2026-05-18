@@ -1,14 +1,4 @@
- const auraFails = [
-    { text: "ШЫМКЕНТТЕН БУРГЕР АКЕМЕДИН", loss: -500000 },
-    { text: "ПЕПСИ ИШЕСИН", loss: -200000 },
-    { text: "ТУНДЕ УКТАМАЙСЫН", loss: -150000 },
-    { text: "ЖЫЛАУЫК", loss: -670000 }
-];
- 
-const hypePhrases = ["МАЛАДЕС", "ЛЕГЕНДА", "МАШ-ИНА", "АУРА ГЕНЕРАТОР", "ОРГАНИЗАТОРША"];
-let currentQuestion = 0;
 let currentTrackIndex = 0;
-// Replace your old 'const tracks = [...]' with this:
 const tracks = [
     { file: 'music/Daisies — Justin Bieber.mp3', name: "Daisies — Justin Bieber" },
     { file: 'music/Beauty and a Beat — Justin Bieber (feat. Nicki Minaj).mp3', name: "Beauty and a Beat — Justin Bieber" },
@@ -189,36 +179,6 @@ function launchConfetti() {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#FF3131', '#5271FF', '#000'] });
 }
  
- 
-function animateAuraAudit() {
-    const totalEl = document.getElementById('aura-total');
-    const feed = document.getElementById('event-feed-container');
-    let mainAura = 1000000;
-    let i = 0;
-    const interval = setInterval(() => {
-        playBuzzer(); 
-        const fail = auraFails[i];
-        const sticker = document.createElement('div');
-        sticker.className = "fail-sticker";
-        sticker.innerHTML = `<span>AURA LOSS</span><p>${fail.text}</p><h2>${fail.loss}</h2>`;
-        feed.appendChild(sticker);
-        mainAura += fail.loss;
-        totalEl.innerText = mainAura;
-        i++;
-        if (i === auraFails.length) {
-            clearInterval(interval);
-            setTimeout(() => {
-                const winSfx = document.getElementById('win-sfx');
-                if (winSfx) winSfx.play();
-                totalEl.innerText = "∞"; 
-                totalEl.style.color = "#00FF00";
-                document.getElementById('finale-btn').style.display = 'block';
-                launchConfetti();
-            }, 1500);
-        }
-    }, 1500);
-}
- 
 function generateHype() {
     playClick();
     document.getElementById('hype-text').innerText = hypePhrases[Math.floor(Math.random() * hypePhrases.length)];
@@ -294,14 +254,13 @@ function showTarget(num) {
         });
     }
  
-    // PAGE 3: COMICS
-    if (num === 3)  
- 
-    // PAGE 4: 20 CARDS
-    if (num === 4) requestAnimationFrame(() => startTenderCards());
+    // // PAGE 3: COMICS
+    if (num === 3) {
+    }
+    if (num === 4) setTimeout(() => startTenderCards(), 50);
+    if (num === 6) animateAuraAudit();
 }
- 
-  
+
 // ── COMIC STRIP NAVIGATION (chap6) ──────────────────────────
 let comicPanel = 0;
 const COMIC_TOTAL = 5;
@@ -444,6 +403,7 @@ function startTenderCards() {
 
         card.style.left = `${randomX}px`;
         card.style.top = `${randomY}px`;
+
         card.style.transform = `rotate(${randomRotate}deg)`;
 
         setupCardDrag(card, deckContainer);
@@ -480,11 +440,6 @@ function setupCardDrag(card, container) {
             hasMoved = true;
         }
 
-        if (currentX < 0) currentX = 0;
-        if (currentY < 0) currentY = 0;
-        if (currentX > container.clientWidth - card.clientWidth) currentX = container.clientWidth - card.clientWidth;
-        if (currentY > container.clientHeight - card.clientHeight) currentY = container.clientHeight - card.clientHeight;
-
         card.style.left = `${currentX}px`;
         card.style.top = `${currentY}px`;
     };
@@ -517,4 +472,53 @@ function setupCardDrag(card, container) {
     card.addEventListener('touchstart', onStart, { passive: true });
     document.addEventListener('touchmove', onMove, { passive: true });
     document.addEventListener('touchend', onEnd);
+}
+
+// ==========================================================================
+// PAGE 7: 3D GIFT BOX INTERACTIVE MECHANICS
+// ==========================================================================
+let isLidDragging = false;
+let startLidY = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const lid = document.getElementById('gift-lid-element');
+    if (!lid) return;
+
+    lid.addEventListener('mousedown', (e) => { isLidDragging = true; startLidY = e.clientY; });
+    lid.addEventListener('touchstart', (e) => { isLidDragging = true; startLidY = e.touches[0].clientY; }, { passive: true });
+    
+    const onMoveLid = (clientY) => {
+        if (!isLidDragging) return;
+        let deltaY = startLidY - clientY;
+        if (deltaY > 40) {
+            lid.classList.add('opened');
+            isLidDragging = false;
+            document.getElementById('gift-status').innerText = "NOW RIP THE TISSUE PAPER";
+            if (typeof playClick === "function") playClick();
+        }
+    };
+
+    document.addEventListener('mousemove', (e) => onMoveLid(e.clientY));
+    document.addEventListener('touchmove', (e) => onMoveLid(e.touches[0].clientY), { passive: true });
+    document.addEventListener('mouseup', () => isLidDragging = false);
+    document.addEventListener('touchend', () => isLidDragging = false);
+});
+
+function ripTissue(layerNum) {
+    const layer = document.getElementById(`tissue-${layerNum}`);
+    if (!layer) return;
+    
+    layer.style.opacity = '0';
+    layer.style.transform = 'scale(1.2) rotate(5deg)';
+    if (typeof playClick === "function") playClick();
+    
+    setTimeout(() => {
+        layer.style.display = 'none';
+        if (layerNum === 2) {
+            document.getElementById('gift-contents-layer').classList.add('visible');
+            document.getElementById('gift-status').innerText = "🎉 GREETINGS UNLOCKED!";
+            document.getElementById('gift-next-btn').style.display = 'inline-block';
+            if (typeof launchConfetti === "function") launchConfetti();
+        }
+    }, 400);
 }

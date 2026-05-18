@@ -290,51 +290,51 @@
     <button id="finale-trigger-btn" class="next-btn" style="display: none;" onclick="nextChap(5)">THE VERIFICATION</button>
 </section>
  
- 
-<!-- ================= PAGE 5: READY? HYPE INTERACTIVE HUB ================= -->
-<section class="chapter" id="chap5">
-    <div id="hype-box"><h1 id="hype-text">READY?</h1></div>
-    <button class="next-btn" onclick="generateHype()" style="background: #FF3131;">HYPE ME</button>
-    <button class="next-btn" onclick="nextChap(6)" style="background: #000;">VIEW STATS</button>
-</section>
- 
-<!-- ================= PAGE 6: AURA AUDIT PROFILE METRICS ================= -->
-<section class="chapter" id="chap6">
-    <div id="event-feed-container"></div>
-    <div id="stats-area">
-        <h1 class="glitch-text" style="margin-bottom: 30px;">AURA AUDIT</h1>
-        <div class="stats-container">
-            <div class="stat-card"><span>DAYS ALIVE</span><h2 id="stat-days">0</h2></div>
-            <div class="stat-card"><span>AURA TOTAL</span><h2 id="aura-total" style="color: #FF3131;">1000000</h2></div>
-        </div>
-        <button id="finale-btn" class="next-btn" onclick="nextChap(7)" style="margin-top: 30px; display: none;">THE FINALE</button>
-    </div>
-</section>
- 
-<!-- ================= PAGE 7: MILESTONE TIMER COUNTER ================= -->
-<section class="chapter" id="chap7">
-    <h1 id="big-number" class="twenty-text">0</h1>
-    <h2 class="sub-title">MAY 08 / 2026</h2>
-</section>
-    </div>
- 
     <script src="script.js"></script>
- 
+        <!-- ================= PAGE 5: THE GIFT UNWRAP (THE GRAND FINALE) ================= -->
+        <section class="chapter" id="chap5">
+            <div class="header-container" style="margin-bottom: 20px;">
+                <h1 class="glitch-text">YOUR GIFT</h1>
+                <p class="status-tag" id="gift-status">TAP & DRAG LID UP TO UNWRAP</p>
+            </div>
+
+            <div class="gift-scene">
+                <div class="gift-box" id="main-gift-box">
+                    <div class="gift-lid" id="gift-lid-element">
+                        <div class="lid-top"></div>
+                        <div class="lid-front"></div>
+                        <div class="lid-left"></div>
+                        <div class="lid-right"></div>
+                        <div class="lid-back"></div>
+
+                    </div>
+                    <div class="gift-body">
+                        <div class="body-inside">
+                            <div class="tissue-layer" id="tissue-1" onclick="ripTissue(1)">🌸 TISSUE PAPER (TAP TO RIP)</div>
+                            <div class="tissue-layer" id="tissue-2" onclick="ripTissue(2)">✨ SOFTER TISSUE (TAP TO RIP)</div>
+                            <div class="gift-contents" id="gift-contents-layer">
+                                <div class="gift-item puzzle-item">🧩 PHOTO PUZZLE</div>
+                                <div class="gift-item letter-item">✉️ THE SECRET LETTER</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- Закрытие secret-content (строка 88) -->
+
+    <script src="script.js"></script>
     <script>
-  const grid = document.querySelector('.polaroid-grid');
-  
-  function scroll() {
-    // If the grid has scrolled past the first 19 images, reset to 0
-    if (grid.scrollLeft >= grid.scrollWidth / 2) {
-      grid.scrollLeft = 0;
-    } else {
-      grid.scrollLeft += 1; // Increase this number to make it scroll faster
-    }
-  }
- 
-  // Runs the scroll function every 16 milliseconds (~60 frames per second)
-  setInterval(scroll, 16);
-</script>
- 
+        const grid = document.querySelector('.polaroid-grid');
+        function scroll() {
+            if (grid && grid.scrollLeft >= grid.scrollWidth / 2) {
+                grid.scrollLeft = 0;
+            } else if (grid) {
+                grid.scrollLeft += 1;
+            }
+        }
+        setInterval(scroll, 16);
+    </script>
 </body>
 </html>

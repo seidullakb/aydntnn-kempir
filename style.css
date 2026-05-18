@@ -1420,6 +1420,19 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
 /* ==========================================================================
    PAGE 4: INDIVIDUAL INDEX CARDS 3D ENGINE & FLIP STYLES
    ========================================================================== */
+
+#cards-deck-container {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 900px !important;
+    height: 550px !important;
+    margin: 20px auto !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 3px dashed var(--border) !important;
+    border-radius: 24px !important;
+    overflow: visible !important; /* Теперь карточки могут вылетать за рамку! */
+}
+
 .observation-card {
     position: absolute !important;
     width: 170px !important;
@@ -1447,6 +1460,28 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     border: 3px solid var(--border) !important;
 }
 
+.observation-card {
+    position: absolute !important;
+    width: 170px !important;
+    height: 230px !important;
+    cursor: grab !important;
+    perspective: 1000px !important;
+    user-select: none !important;
+    touch-action: none !important;
+}
+
+.card-inner {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform-style: preserve-3d !important;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 6px 6px 0px var(--border) !important;
+    border-radius: 12px !important;
+    border: 3px solid var(--border) !important;
+}
+
+
 /* Logic Flip State Class Toggle Switch */
 .observation-card.flipped .card-inner {
     transform: rotateY(180deg) !important;
@@ -1466,12 +1501,9 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     box-sizing: border-box !important;
 }
 
-/* Front Side: Index Card Number Mask Display */
 .card-front {
     background: var(--pink) !important;
     color: white !important;
-    font-size: 2.5rem !important;
-    font-weight: 900 !important;
 }
 
 /* Back Side: Sincere Personal Observation Text Layer */
@@ -1484,4 +1516,135 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     text-align: center !important;
     font-weight: bold !important;
     overflow-y: auto !important;
+}
+/* ==========================================================================
+   PAGE 7: 3D GIFT BOX UNWRAP STYLES
+   ========================================================================== */
+.gift-scene {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+}
+
+.gift-box {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(25deg);
+    transition: transform 0.5s ease;
+}
+
+/* 3D Крышка коробки */
+.gift-lid {
+    position: absolute;
+    width: 210px;
+    height: 50px;
+    top: -45px;
+    left: -5px;
+    transform-style: preserve-3d;
+    transform-origin: bottom back;
+    cursor: grab;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+}
+
+.gift-lid:active { cursor: grabbing; }
+.gift-lid.opened { transform: rotateX(-140deg) translateY(-20px); }
+
+.lid-top { position: absolute; width: 210px; height: 210px; background: #ff477e !important; border: 3px solid var(--border); transform: rotateX(90deg) translateZ(105px); box-shadow: inset 0 0 20px rgba(0,0,0,0.2); }
+.lid-front { position: absolute; width: 210px; height: 45px; background: #ff5e97 !important; border: 3px solid var(--border); transform: translateZ(105px); }
+.lid-left { position: absolute; width: 210px; height: 45px; background: #e03867 !important; border: 3px solid var(--border); transform: rotateY(-90deg) translateZ(105px); }
+.lid-right { position: absolute; width: 210px; height: 45px; background: #e03867 !important; border: 3px solid var(--border); transform: rotateY(90deg) translateZ(105px); }
+.lid-back { position: absolute; width: 210px; height: 45px; background: #c22d55 !important; border: 3px solid var(--border); transform: rotateY(180deg) translateZ(105px); }
+
+.gift-body {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #ffffff !important;
+    border: 3px solid var(--border);
+    transform-style: preserve-3d;
+    box-shadow: 12px 12px 0px var(--border);
+}
+
+.gift-body::before {
+    content: '' !important;
+    position: absolute !important;
+    width: 200px !important;
+    height: 200px !important;
+    background: #e6e6e6 !important;
+    border: 3px solid var(--border) !important;
+    top: -3px !important;
+    left: -3px !important;
+    transform: rotateY(-90deg) translateZ(100px) !important;
+}
+
+.gift-body::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 200px !important;
+    height: 200px !important;
+    background: #cccccc !important;
+    border: 3px solid var(--border) !important;
+    top: -3px !important;
+    left: -3px !important;
+    transform: rotateY(90deg) translateZ(100px) !important;
+}
+
+
+.body-inside {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    transform: translateZ(-10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Слои бумаги */
+.tissue-layer {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background: #ffb3d1;
+    color: #333;
+    border: 2px dashed #ff477e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 3;
+}
+#tissue-2 { background: #ffe3ed; z-index: 2; }
+
+/* Содержимое подарка */
+.gift-contents {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1;
+}
+.gift-contents.visible { opacity: 1; transform: scale(1); }
+
+.gift-item {
+    padding: 10px;
+    background: var(--pink);
+    color: white;
+    border: 2px solid var(--border);
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
 }
