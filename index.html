@@ -291,50 +291,109 @@
 </section>
  
     <script src="script.js"></script>
-        <!-- ================= PAGE 5: THE GIFT UNWRAP (THE GRAND FINALE) ================= -->
         <section class="chapter" id="chap5">
-            <div class="header-container" style="margin-bottom: 20px;">
-                <h1 class="glitch-text">YOUR GIFT</h1>
-                <p class="status-tag" id="gift-status">TAP & DRAG LID UP TO UNWRAP</p>
-            </div>
-
-            <div class="gift-scene">
-                <div class="gift-box" id="main-gift-box">
-                    <div class="gift-lid" id="gift-lid-element">
-                        <div class="lid-top"></div>
-                        <div class="lid-front"></div>
-                        <div class="lid-left"></div>
-                        <div class="lid-right"></div>
-                        <div class="lid-back"></div>
-
-                    </div>
-                    <div class="gift-body">
-                        <div class="body-inside">
-                            <div class="tissue-layer" id="tissue-1" onclick="ripTissue(1)">🌸 TISSUE PAPER (TAP TO RIP)</div>
-                            <div class="tissue-layer" id="tissue-2" onclick="ripTissue(2)">✨ SOFTER TISSUE (TAP TO RIP)</div>
-                            <div class="gift-contents" id="gift-contents-layer">
-                                <div class="gift-item puzzle-item">🧩 PHOTO PUZZLE</div>
-                                <div class="gift-item letter-item">✉️ THE SECRET LETTER</div>
-                            </div>
-                        </div>
+    <div class="header-container" style="margin-bottom: 20px;">
+        <h1 class="glitch-text">YOUR GIFT</h1>
+        <p class="status-tag" id="gift-status">CLICK 20 TIMES TO UNWRAP</p>
+    </div>
+ 
+    <div class="gift-container">
+        <div class="gift-scene">
+            <div class="gift-box" id="giftBox">
+                <div class="gift-lid" id="giftLid">
+                    <div class="ribbon-v"></div>
+                    <div class="ribbon-h"></div>
+                    <div class="bow">
+                        <span></span>
+                        <span></span>
                     </div>
                 </div>
+                <div class="gift-body">
+                    <div class="gift-inside"></div> 
+                    <div class="ribbon-v"></div>
+                    <div class="ribbon-h"></div>
+                </div>
             </div>
-        </section>
-
-    </div> <!-- Закрытие secret-content (строка 88) -->
-
+        </div>
+<div class="gift-message" id="giftMessage">
+                <img src="photo20.jpg" alt="Birthday Photo">
+                <h2>Happy Birthday!</h2>
+                <p>Thank you for becoming one of the most beautiful parts of my life.</p>
+                <button class="next-btn" style="margin-top: 20px;" onclick="nextChap(8)">CONTINUE →</button>
+            </div>
+ 
+            <div class="gift-text" id="giftText">Click the box</div>
+        </div>
+    </section>
+ 
+  <!-- ================= PAGE 8: THE PHOTO MOSAIC ENVELOPE ================= -->
+<section class="chapter" id="chap8">
+ 
+    <div class="header-container">
+        <h1 class="glitch-text">ONE LAST THING</h1>
+        <p class="status-tag">
+            PIECES ALIGNED: <span id="puzzle-counter">0</span> / 16
+        </p>
+    </div>
+ 
+    <div id="puzzle-arena">
+        <!-- PUZZLE BOARD -->
+        <div id="puzzle-board"></div>
+    </div>
+ 
+    <!-- ENVELOPE (appears after puzzle complete) -->
+    <div id="final-envelope-wrapper">
+        <div id="envelope-outer">
+            <div id="envelope-flap"></div>
+            <div id="envelope-body">
+                <div id="envelope-seal">✦</div>
+            </div>
+        </div>
+        <p id="envelope-hint">tap to open</p>
+    </div>
+ 
+    <!-- LETTER (appears after envelope tap) -->
+    <div id="letter-wrapper">
+        <div id="letter-paper">
+            <span class="letter-deco">✦ ✦ ✦</span>
+            <p id="letter-body">
+                Туған күніңмен, Айдана кыз! 🎉<br><br>
+                Сен менің өмірімдегі ең күшті адамсың.<br>
+                Осы уақытқа дейін істеген қамқорлығыңа,<br>
+                өтпей қалған приколдарга күлгеніне рахмет!<br><br>
+                Қанша бұзық болса да, бәрібір<br>
+                ең сигма краш апкесің.<br><br>
+                Всегда осылай күліп, факюларыңды<br>
+                көрсетіп жүре бер! 🥹✨
+            </p>
+            <span class="letter-deco">✦ ✦ ✦</span>
+            <button class="next-btn" id="letter-next-btn"
+                style="display:none; margin-top:28px;"
+                onclick="nextChap(9)">FINISH →</button>
+        </div>
+    </div>
+ 
+</section>
+    </div>
+ 
     <script src="script.js"></script>
+ 
     <script>
-        const grid = document.querySelector('.polaroid-grid');
-        function scroll() {
-            if (grid && grid.scrollLeft >= grid.scrollWidth / 2) {
-                grid.scrollLeft = 0;
-            } else if (grid) {
-                grid.scrollLeft += 1;
-            }
-        }
-        setInterval(scroll, 16);
-    </script>
+  const grid = document.querySelector('.polaroid-grid');
+  
+  function scroll() {
+    // If the grid has scrolled past the first 19 images, reset to 0
+    if (grid.scrollLeft >= grid.scrollWidth / 2) {
+      grid.scrollLeft = 0;
+    } else {
+      grid.scrollLeft += 1; // Increase this number to make it scroll faster
+    }
+  }
+ 
+  // Runs the scroll function every 16 milliseconds (~60 frames per second)
+  setInterval(scroll, 16);
+</script>
+ 
 </body>
 </html>
+ 

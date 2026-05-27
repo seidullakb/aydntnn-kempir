@@ -1420,7 +1420,7 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
 /* ==========================================================================
    PAGE 4: INDIVIDUAL INDEX CARDS 3D ENGINE & FLIP STYLES
    ========================================================================== */
-
+ 
 #cards-deck-container {
     position: relative !important;
     width: 100% !important;
@@ -1432,7 +1432,7 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     border-radius: 24px !important;
     overflow: visible !important; /* Теперь карточки могут вылетать за рамку! */
 }
-
+ 
 .observation-card {
     position: absolute !important;
     width: 170px !important;
@@ -1443,11 +1443,11 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     touch-action: none !important;
     transition: transform 0.15s ease-out, box-shadow 0.15s ease-out !important;
 }
-
+ 
 .observation-card:active {
     cursor: grabbing !important;
 }
-
+ 
 /* Card Core Container Dimensions */
 .card-inner {
     position: relative !important;
@@ -1459,7 +1459,7 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     border-radius: 12px !important;
     border: 3px solid var(--border) !important;
 }
-
+ 
 .observation-card {
     position: absolute !important;
     width: 170px !important;
@@ -1469,7 +1469,7 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     user-select: none !important;
     touch-action: none !important;
 }
-
+ 
 .card-inner {
     position: relative !important;
     width: 100% !important;
@@ -1480,13 +1480,13 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     border-radius: 12px !important;
     border: 3px solid var(--border) !important;
 }
-
-
+ 
+ 
 /* Logic Flip State Class Toggle Switch */
 .observation-card.flipped .card-inner {
     transform: rotateY(180deg) !important;
 }
-
+ 
 /* Global Shared Sides Properties */
 .card-front, .card-back {
     position: absolute !important;
@@ -1500,151 +1500,755 @@ button:active, .music-btn:active, .next-btn:active { transform: translate(4px, 4
     padding: 15px !important;
     box-sizing: border-box !important;
 }
-
+ 
 .card-front {
     background: var(--pink) !important;
     color: white !important;
 }
-
+ 
 /* Back Side: Sincere Personal Observation Text Layer */
 .card-back {
     background: var(--card) !important;
     color: var(--text) !important;
     transform: rotateY(180deg) !important;
-    font-size: 0.85rem !important;
+    font-size: 0.7rem !important;
     line-height: 1.4 !important;
     text-align: center !important;
     font-weight: bold !important;
     overflow-y: auto !important;
 }
+ 
 /* ==========================================================================
-   PAGE 7: 3D GIFT BOX UNWRAP STYLES
+   ФИНАЛЬНЫЙ ЭКРАН ПОДАРКА (#chap5) С РЕАЛИСТИЧНЫМ 3D ОБЪЕМОМ
    ========================================================================== */
-.gift-scene {
-    width: 100%;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    perspective: 1200px;
-}
-
-.gift-box {
+ 
+.gift-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    transform-style: preserve-3d;
-    transform: rotateX(-20deg) rotateY(25deg);
-    transition: transform 0.5s ease;
-}
-
-/* 3D Крышка коробки */
-.gift-lid {
-    position: absolute;
-    width: 210px;
-    height: 50px;
-    top: -45px;
-    left: -5px;
-    transform-style: preserve-3d;
-    transform-origin: bottom back;
-    cursor: grab;
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 5;
-}
-
-.gift-lid:active { cursor: grabbing; }
-.gift-lid.opened { transform: rotateX(-140deg) translateY(-20px); }
-
-.lid-top { position: absolute; width: 210px; height: 210px; background: #ff477e !important; border: 3px solid var(--border); transform: rotateX(90deg) translateZ(105px); box-shadow: inset 0 0 20px rgba(0,0,0,0.2); }
-.lid-front { position: absolute; width: 210px; height: 45px; background: #ff5e97 !important; border: 3px solid var(--border); transform: translateZ(105px); }
-.lid-left { position: absolute; width: 210px; height: 45px; background: #e03867 !important; border: 3px solid var(--border); transform: rotateY(-90deg) translateZ(105px); }
-.lid-right { position: absolute; width: 210px; height: 45px; background: #e03867 !important; border: 3px solid var(--border); transform: rotateY(90deg) translateZ(105px); }
-.lid-back { position: absolute; width: 210px; height: 45px; background: #c22d55 !important; border: 3px solid var(--border); transform: rotateY(180deg) translateZ(105px); }
-
-.gift-body {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    background: #ffffff !important;
-    border: 3px solid var(--border);
-    transform-style: preserve-3d;
-    box-shadow: 12px 12px 0px var(--border);
-}
-
-.gift-body::before {
-    content: '' !important;
-    position: absolute !important;
-    width: 200px !important;
-    height: 200px !important;
-    background: #e6e6e6 !important;
-    border: 3px solid var(--border) !important;
-    top: -3px !important;
-    left: -3px !important;
-    transform: rotateY(-90deg) translateZ(100px) !important;
-}
-
-.gift-body::after {
-    content: '' !important;
-    position: absolute !important;
-    width: 200px !important;
-    height: 200px !important;
-    background: #cccccc !important;
-    border: 3px solid var(--border) !important;
-    top: -3px !important;
-    left: -3px !important;
-    transform: rotateY(90deg) translateZ(100px) !important;
-}
-
-
-.body-inside {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #1a1a1a;
-    transform: translateZ(-10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-/* Слои бумаги */
-.tissue-layer {
-    position: absolute;
-    width: 90%;
-    height: 90%;
-    background: #ffb3d1;
-    color: #333;
-    border: 2px dashed #ff477e;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    z-index: 3;
-}
-#tissue-2 { background: #ffe3ed; z-index: 2; }
-
-/* Содержимое подарка */
-.gift-contents {
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.5s ease;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 45vw;         /* Uses 45% of the viewport width */
+    max-width: 550px;    /* Prevents it from getting absurdly giant on massive 4K monitors */
+    min-width: 320px;    /* Keeps it perfectly usable on mobile */
+    margin: 0 auto;
+    transition: all 0.5s ease;
+}
+ 
+.gift-scene {
+    perspective: 2000px;
+    transform-style: preserve-3d;
+    z-index: 10;
+}
+ 
+.gift-box {
+    width: 260px;
+    height: 260px;
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transform-origin: bottom center;
+    animation: floatBox 4s ease-in-out infinite;
+}
+ 
+.gift-box.open {
+    animation-play-state: paused;
+}
+ 
+/* ОБЪЕМНОЕ ТЕЛО КОРОБКИ */
+.gift-body {
+    position: absolute;
+    bottom: 0;
+    width: 260px;
+    height: 180px;
+    background: linear-gradient(145deg, #ff4f8f, #ff2f75);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+ 
+/* РЕАЛИСТИЧНОЕ ОТВЕРСТИЕ КОРОБКИ (ГЛУБИНА И ТЕНЬ ВНУТРИ) */
+.gift-inside {
+    position: absolute;
+    top: -15px; /* Формирует аккуратный овал раскрытия */
+    left: 0;
+    width: 100%;
+    height: 30px; 
+    background: linear-gradient(to bottom, #4a051a, #20000a);
+    border-radius: 50%;
+    box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.85);
+    z-index: 3; /* Скрывает под собой верхние края внешних лент */
+    overflow: hidden;
+}
+ 
+/* Перекрытие, аккуратно уводящее вертикальную ленту в тень */
+.gift-inside::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 42px;
+    height: 10px;
+    background: #4a051a;
+    z-index: 4;
+}
+ 
+/* КРЫШКА И ИСПРАВЛЕННЫЙ ОТЛЕТ ВВЕРХ В СТОРОНУ */
+.gift-lid {
+    position: absolute;
+    top: 50px; 
+    width: 280px;
+    height: 50px;
+    left: -10px;
+    background: linear-gradient(145deg, #ff6aa2, #ff3c82);
+    border-radius: 8px;
+    z-index: 20;
+    transform-origin: bottom center;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+}
+ 
+.gift-box.open .gift-lid {
+    transform: translateY(-240px) rotate(-45deg) scale(0.75);
+    opacity: 0;
+}
+ 
+/* ДЕФОРМАЦИЯ КОРОБКИ ПРИ УДАРЕ */
+.gift-box.shake {
+    animation: distortHit 0.3s ease-in-out;
+}
+ 
+@keyframes distortHit {
+    0% { transform: scale(1); }
+    30% { transform: scaleX(1.12) scaleY(0.88); }
+    60% { transform: scaleX(0.95) scaleY(1.05); }
+    100% { transform: scale(1); }
+}
+ 
+/* ЛЕНТЫ И БАНТ */
+.ribbon-v { position: absolute; width: 42px; height: 100%; left: 50%; transform: translateX(-50%); background: #ffd4e3; }
+.ribbon-h { position: absolute; width: 100%; height: 36px; top: 50%; transform: translateY(-50%); background: #ffd4e3; }
+ 
+.gift-body .ribbon-v {
+    z-index: 1;
+    height: 100%;
+    top: 0;
+}
+ 
+.bow {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 40px;
+    z-index: 25;
+}
+.bow span {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: #fff3f7;
+    border-radius: 50% 50% 12% 50%;
+}
+.bow span:first-child { left: 0; transform: rotate(-35deg); }
+.bow span:last-child { right: 0; transform: scaleX(-1) rotate(-35deg); }
+ 
+/* ПОЗДРАВЛЕНИЕ НАД КОРОБКОЙ */
+.gift-message {
+    position: absolute;
+    top: 45%;            /* Vertically centers the middle of the card on the screen */
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6); /* Perfectly centers horizontally and vertically, starts shrunk */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    width: 40vw;         
+    max-width: 500px;
+    min-width: 300px;
+    background: #ffffff;
+    padding: 40px 30px;  
+    border-radius: 24px; 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 100;        /* Ensures it sits cleanly on top of the gift container */
+}
+ 
+.your-gift-heading-selector {
+    font-size: clamp(3rem, 6vw, 5.5rem); /* Dynamically scales fluidly between 3rem and 5.5rem */
+    letter-spacing: 4px;
+    margin-bottom: 20px;
     z-index: 1;
 }
-.gift-contents.visible { opacity: 1; transform: scale(1); }
-
-.gift-item {
-    padding: 10px;
-    background: var(--pink);
-    color: white;
-    border: 2px solid var(--border);
-    font-weight: bold;
-    border-radius: 6px;
+ 
+.gift-message.open {
+    opacity: 1;
+    transform: translate(-50%, -60%) scale(1); /* Pops up into full scale and shifts slightly upward for an elegant lift */
+    pointer-events: auto;
+}
+ 
+.gift-message img {
+width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+ 
+.gift-message h2 { 
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: #ff2f75; 
+    margin: 15px 0 5px 0; 
+}
+ 
+.gift-message p { 
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.6;
+    color: #555; 
+    max-width: 90%; /* Allows text to spread wider across the expanded card */
+    margin: 0 auto; 
+}
+ 
+.gift-text {
     text-align: center;
+    margin-top: 25px;
+    letter-spacing: 3px;
+    color: #888;
+    font-size: 14px;
+    transition: opacity 0.3s;
+}
+ 
+@keyframes floatBox {
+    0% { transform: translateY(0px) rotateY(-5deg); }
+    50% { transform: translateY(-12px) rotateY(5deg); }
+    100% { transform: translateY(0px) rotateY(-5deg); }
+}
+ 
+/* ═══════════════════════════════════════════════════════════
+   PAGE 8 — THE PHOTO MOSAIC ENVELOPE
+   puzzle-photo.png should be 340×340px (square crop)
+═══════════════════════════════════════════════════════════ */
+ 
+/* ── SECTION ── */
+#chap8 {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 36px 16px 64px;
+    min-height: 100vh;
+    gap: 18px;
+    overflow: visible;
+    position: relative;
+}
+#chap8.active {
+    display: flex !important;
+    opacity: 1 !important;
+}
+ 
+/* ── ARENA wraps board + envelope so they overlap cleanly ── */
+#puzzle-arena {
+    position: relative;
+    width: 340px;
+    min-height: 380px;
+    flex-shrink: 0;
+}
+ 
+/* ── BOARD ── */
+#puzzle-board {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    border: 3px solid var(--border, #1A1520);
+    box-shadow: 6px 6px 0 var(--border, #1A1520);
+    background: rgba(255,255,255,0.02);
+    display: grid;
+    grid-template-columns: repeat(4, 85px);
+    grid-template-rows: repeat(4, 85px);
+    overflow: visible;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+#puzzle-board.fade-out {
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+}
+ 
+/* ghost slot indicators */
+#puzzle-board::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to right,  rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 85px 85px;
+    pointer-events: none;
+}
+ 
+/* ── PIECE ── */
+.puzzle-piece {
+    width: 85px;
+    height: 85px;
+    position: absolute;
+    cursor: grab;
+    box-sizing: border-box;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    box-shadow: 3px 3px 0 var(--border, #1A1520);
+    /* background-image set by JS */
+    background-size: 340px 340px !important;
+    background-repeat: no-repeat !important;
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+    will-change: transform, left, top;
+    touch-action: none;
+    user-select: none;
+}
+.puzzle-piece:active { cursor: grabbing; }
+ 
+.puzzle-piece.dragging {
+    z-index: 200 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 2px var(--pink, #FF3C6F) !important;
+    transform: scale(1.07) rotate(0deg) !important;
+    transition: box-shadow 0.1s ease;
+}
+ 
+/* snapped = locked into place */
+.puzzle-piece.snapped {
+    cursor: default !important;
+    box-shadow: none !important;
+    border-color: rgba(100,220,130,0.35) !important;
+    transform: rotate(0deg) !important;
+    transition: transform 0.25s cubic-bezier(0.175,0.885,0.32,1.275),
+                box-shadow 0.25s ease !important;
+    pointer-events: none;
+    z-index: 1 !important;
+}
+ 
+/* slot highlight on hover-over */
+.drop-slot-highlight {
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    background: rgba(255,60,111,0.1);
+    border: 2px dashed rgba(255,60,111,0.45);
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 3;
+    transition: opacity 0.1s;
+}
+ 
+/* ── COMPLETION GLOW ── */
+@keyframes completionPulse {
+    0%,100% { box-shadow: 0 0 0   0 rgba(255,220,80,0); }
+    50%      { box-shadow: 0 0 40px 12px rgba(255,200,60,0.35); }
+}
+#puzzle-board.complete {
+    animation: completionPulse 1.6s ease-in-out 3;
+}
+ 
+/* ── ENVELOPE ── */
+#final-envelope-wrapper {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+#final-envelope-wrapper.show {
+    display: flex;
+    opacity: 0; /* starts at 0, animated via JS */
+}
+#final-envelope-wrapper.visible { opacity: 1; }
+ 
+#envelope-outer {
+    position: relative;
+    width: 240px;
+    cursor: pointer;
+    animation: envFloat 3s ease-in-out infinite;
+    filter: drop-shadow(4px 8px 16px rgba(0,0,0,0.22));
+}
+@keyframes envFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+}
+ 
+#envelope-flap {
+    width: 0; height: 0;
+    border-left:  120px solid transparent;
+    border-right: 120px solid transparent;
+    border-bottom: 72px solid #F5EDDA;
+    position: relative; z-index: 2;
+    filter: drop-shadow(0 -1px 0 #8B6F47);
+    transform-origin: top center;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+#envelope-outer.opening #envelope-flap {
+    transform: rotateX(180deg);
+}
+ 
+#envelope-body {
+    width: 240px;
+    height: 150px;
+    background: #FDF6E3;
+    border: 2px solid #8B6F47;
+    margin-top: -2px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    /* V-fold lines */
+    background-image:
+        linear-gradient(135deg, rgba(139,111,71,0.07) 50%, transparent 50%),
+        linear-gradient(-135deg, rgba(139,111,71,0.07) 50%, transparent 50%);
+    background-size: 120px 150px;
+}
+#envelope-seal {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--pink, #FF3C6F);
+    border: 2px solid #1A1520;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 0.9rem;
+    box-shadow: 2px 2px 0 #1A1520;
+    transition: transform 0.3s ease;
+}
+#envelope-outer:hover #envelope-seal { transform: scale(1.1); }
+ 
+#envelope-hint {
+    font-family: Georgia, serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.3);
+    margin-top: 4px;
+}
+ 
+/* ── LETTER ── */
+#letter-wrapper {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+#letter-wrapper.show { display: flex; }
+#letter-wrapper.visible { opacity: 1; }
+ 
+#letter-paper {
+    width: 300px;
+    background: #FEFAF0;
+    border: 2px solid #8B6F47;
+    padding: 32px 28px 28px;
+    box-shadow: 5px 5px 0 #1A1520;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    /* ruled lines */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0, transparent 27px,
+        rgba(139,111,71,0.1) 27px, rgba(139,111,71,0.1) 28px
+    );
+}
+ 
+.letter-deco {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: rgba(139,111,71,0.6);
+}
+ 
+#letter-body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.85rem;
+    line-height: 1.95;
+    color: #2C1A08;
+    text-align: center;
+    font-weight: 400;
+}
+ 
+/* ═══════════════════════════════════════════════════════════
+   PAGE TRANSITION OVERLAY — HEARTS
+═══════════════════════════════════════════════════════════ */
+ 
+#transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    background: transparent;
+}
+#transition-overlay.active {
+    pointer-events: all;
+    opacity: 1;
+}
+ 
+/* Individual heart particle */
+.t-heart {
+    position: absolute;
+    bottom: -60px;
+    font-size: 1.4rem;
+    line-height: 1;
+    pointer-events: none;
+    animation: heartRise var(--dur, 1s) cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--delay, 0s) forwards;
+    will-change: transform, opacity;
+}
+ 
+@keyframes heartRise {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.4) rotate(var(--rot, 0deg));
+    }
+    15% {
+        opacity: 1;
+        transform: translateY(-15vh) scale(1) rotate(var(--rot, 0deg));
+    }
+    70% {
+        opacity: 1;
+        transform: translateY(var(--rise, -80vh)) scale(var(--scale, 1)) rotate(calc(var(--rot, 0deg) + var(--spin, 20deg)));
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-110vh) scale(0.6) rotate(calc(var(--rot, 0deg) + var(--spin, 30deg)));
+    }
+}
+ 
+/* Dark semi-transparent backdrop that fades in/out */
+#transition-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9997;
+    background: rgba(13, 10, 10, 0);
+    pointer-events: none;
+    transition: background 0.3s ease;
+}
+#transition-backdrop.dim {
+    background: rgba(13, 10, 10, 0.45);
+}
+
+
+
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — paste at the very bottom of style.css
+═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+
+  /* ── BODY ── */
+  body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    align-items: flex-start !important;
+  }
+
+  /* ── LOGIN BOX ── */
+  #login-box {
+    width: 88vw !important;
+    padding: 32px 24px !important;
+    box-shadow: 6px 6px 0px var(--pink) !important;
+    margin: 40px auto !important;
+  }
+
+  #special-title { font-size: 1.4rem !important; }
+
+  #date-input {
+    width: 100% !important;
+    font-size: 1.8rem !important;
+    letter-spacing: 10px !important;
+  }
+
+  .numpad { gap: 10px !important; }
+  .numpad button {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 1.2rem !important;
+  }
+
+  /* ── VINYL PLAYER ── */
+  #vinyl-player-container {
+    bottom: 12px !important;
+    right: 12px !important;
+    padding: 14px !important;
+    border-radius: 20px !important;
+    gap: 8px !important;
+  }
+
+  .vinyl-wrapper,
+  #vinyl-record {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .vinyl-info {
+    width: 150px !important;
+    height: 50px !important;
+  }
+
+  .vinyl-controls button {
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* ── CHAPTERS ── */
+  .chapter.active {
+    min-height: 100dvh !important;
+    padding: 20px 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ── CHAPTER 1 — POLAROIDS ── */
+  .polaroid {
+    width: 120px !important;
+    height: 190px !important;
+  }
+
+  .polaroid img {
+    height: 145px !important;
+  }
+
+  .glitch-text {
+    font-size: 2.4rem !important;
+  }
+
+  .status-tag {
+    font-size: 0.75rem !important;
+    padding: 4px 10px !important;
+  }
+
+  /* ── NEXT BUTTON ── */
+  .next-btn {
+    padding: 12px 28px !important;
+    font-size: 0.85rem !important;
+    box-shadow: 5px 5px 0px #000 !important;
+  }
+
+  /* ── COMIC CHAPTER ── */
+  .comic-viewport {
+    width: 96vw !important;
+    height: 340px !important;
+  }
+
+  .section-subtitle {
+    font-size: 0.75rem !important;
+  }
+
+  .comic-nav {
+    width: 96vw !important;
+  }
+
+  .control-btn {
+    padding: 6px 14px !important;
+    font-size: 11px !important;
+  }
+
+  /* ── QUIZ ── */
+  #quiz-box {
+    padding: 24px 16px !important;
+    box-shadow: 10px 10px 0px #5271FF !important;
+    width: 88vw !important;
+  }
+
+  #question-text {
+    font-size: 1.6rem !important;
+  }
+
+  /* ── HYPE BOX ── */
+  #hype-box {
+    padding: 30px 20px !important;
+    min-width: unset !important;
+    width: 88vw !important;
+  }
+
+  #hype-text {
+    font-size: 1.8rem !important;
+  }
+
+  /* ── STATS ── */
+  .stats-container {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+    width: 96vw !important;
+  }
+
+  .stat-card h2 { font-size: 1.4rem !important; }
+
+  /* ── FINALE — BIG 20 ── */
+  .twenty-text {
+    font-size: 7rem !important;
+    -webkit-text-stroke: 4px #000 !important;
+  }
+
+  .sub-title {
+    font-size: 1.2rem !important;
+    padding: 8px 20px !important;
+  }
+
+  /* ── PUZZLE BOARD ── */
+  #puzzle-arena,
+  #puzzle-board {
+    width: 280px !important;
+    height: 280px !important;
+  }
+
+  #puzzle-board {
+    grid-template-columns: repeat(4, 70px) !important;
+    grid-template-rows: repeat(4, 70px) !important;
+  }
+
+  .puzzle-piece {
+    width: 70px !important;
+    height: 70px !important;
+    background-size: 280px 280px !important;
+  }
+
+  .drop-slot-highlight {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  /* ── ENVELOPE ── */
+  #envelope-outer { width: 200px !important; }
+  #envelope-flap {
+    border-left-width: 100px !important;
+    border-right-width: 100px !important;
+  }
+  #envelope-body { width: 200px !important; }
+
+  #letter-paper {
+    width: 88vw !important;
+    padding: 24px 18px !important;
+  }
+
+  /* ── ERROR CARD ── */
+  .error-card {
+    width: 88vw !important;
+    padding: 28px 20px !important;
+  }
+
+  /* ── EVENT FEED ── */
+  #event-feed-container {
+    width: 180px !important;
+    right: 8px !important;
+  }
+
+  /* ── BG ICONS — hide on small screens so they don't crowd ── */
+  .i1, .i2, .i3, .i4 {
+    font-size: 1.5rem !important;
+  }
 }
