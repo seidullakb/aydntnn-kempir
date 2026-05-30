@@ -59,22 +59,23 @@
     <input type="text" id="date-input" maxlength="8" readonly style="background-color: transparent;">
     </div>
  
-    <div class="numpad">
-        <button onclick="appendNum(1)">1</button>
-        <button onclick="appendNum(2)">2</button>
-        <button onclick="appendNum(3)">3</button>
-        <button onclick="appendNum(4)">4</button>
-        <button onclick="appendNum(5)">5</button>
-        <button onclick="appendNum(6)">6</button>
-        <button onclick="appendNum(7)">7</button>
-        <button onclick="appendNum(8)">8</button>
-        <button onclick="appendNum(9)">9</button>
-        <div style="visibility: hidden;"></div> <button onclick="appendNum(0)">0</button>
-        <button onclick="backspace()"><i class="fas fa-backspace"></i> ← </button>
-    </div>
- 
-    <button id="unlock-btn" onclick="checkDate()">UNLOCK CHAPTER 20</button>
-</div>
+        <div class="numpad">
+            <button onclick="appendNum(1)" ontouchstart="appendNum(1); event.preventDefault();">1</button>
+            <button onclick="appendNum(2)" ontouchstart="appendNum(2); event.preventDefault();">2</button>
+            <button onclick="appendNum(3)" ontouchstart="appendNum(3); event.preventDefault();">3</button>
+            <button onclick="appendNum(4)" ontouchstart="appendNum(4); event.preventDefault();">4</button>
+            <button onclick="appendNum(5)" ontouchstart="appendNum(5); event.preventDefault();">5</button>
+            <button onclick="appendNum(6)" ontouchstart="appendNum(6); event.preventDefault();">6</button>
+            <button onclick="appendNum(7)" ontouchstart="appendNum(7); event.preventDefault();">7</button>
+            <button onclick="appendNum(8)" ontouchstart="appendNum(8); event.preventDefault();">8</button>
+            <button onclick="appendNum(9)" ontouchstart="appendNum(9); event.preventDefault();">9</button>
+            <div style="visibility: hidden;"></div> 
+            <button onclick="appendNum(0)" ontouchstart="appendNum(0); event.preventDefault();">0</button>
+            <button onclick="backspace()" ontouchstart="backspace(); event.preventDefault();">←</button>
+        </div>
+
+        <button id="unlock-btn" onclick="checkDate()" ontouchstart="checkDate(); event.preventDefault();">UNLOCK CHAPTER 20</button>
+
         
    <div id="glitch-overlay" class="hidden">
     <div class="error-card">
